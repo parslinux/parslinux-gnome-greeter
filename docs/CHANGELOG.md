@@ -10,12 +10,16 @@ proje [Sürümleme](VERSION.md) kurallarına uyar.
 ### Eklendi
 - pytest tabanlı test altyapısı (`tests/`): SettingsManager, LayoutManager ve
   veri dosyası bütünlük testleri (29 test, gi/pydbus stub'larıyla başlessız çalışır)
-- `INSTALL.md`, `ARCHITECTURE.md`, `VERSION.md`, `progress.md` ve AI asistan
-  dosyaları (`CLAUDE.md`, `.claudeignore`)
-- Dokümantasyon rehberleri: `DATA_SAVING_GUIDE.md`, `SELF_HOSTING_GUIDE.md`,
+- Arch Linux desteği: `run.sh`, `install.sh`, `uninstall.sh` betikleri ve `PKGBUILD`;
+  `meson.build`de site-packages hedefinin otomatik tespiti
+- Dokümantasyon: `docs/` klasörü altında `INSTALL.md`, `ARCHITECTURE.md`,
+  `VERSION.md`, `progress.md`, `DATA_SAVING_GUIDE.md`, `SELF_HOSTING_GUIDE.md`,
   `PAYMENT_INTEGRATION.md`, `UYGULAMA_BAGLAMA.md`, `TESTING.md`, `CONTRIBUTING.md`
+  ve kök dizinde AI asistan dosyaları (`CLAUDE.md`, `.claudeignore`)
 
 ### Değiştirildi
+- Tüm dokümantasyon `.md` dosyaları kök dizinden `docs/` klasörüne taşındı
+  (README.md ve CLAUDE.md kökte kaldı)
 - Marka temizliği: tüm "Pardus" referansları "ParsLinux" ile değiştirildi
   (uygulama kimliği `org.parslinux.parslinux-gnome-greeter`, dosya adları,
   GSettings şeması, desktop/autostart dosyaları ve kullanıcı metinleri)

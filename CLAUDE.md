@@ -25,13 +25,16 @@ data/
   po/                          # Çeviriler (tr, es, pt)
   assets/ icons/ css/ autostart/
 tests/                         # pytest testleri (gi sahte/stub ile izole)
+docs/                          # Tüm dokümantasyon (.md rehberler, bkz. docs/README.md)
 debian/                        # Debian paketleme
+run.sh / install.sh / uninstall.sh   # Geliştirme/kurulum betikleri (Arch & Debian)
+PKGBUILD                       # Arch Linux paket reçetesi
 ```
 
 ## Çalıştırma & Test
 
 ```bash
-# Derleme/kurulum (INSTALL.md'ye bakın)
+# Derleme/kurulum (docs/INSTALL.md'ye bakın)
 meson setup build && meson compile -C build
 
 # Testler (GTK olmadan da çalışır — conftest.py gi'yi stub'lar)

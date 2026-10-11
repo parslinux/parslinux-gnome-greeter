@@ -44,3 +44,14 @@ if wallpaper_manager.set_wallpaper("/usr/share/backgrounds/parslinux/parslinux-d
 ![Screenshot 6](data/assets/screenshots/ss6.png)
 ![Screenshot 7](data/assets/screenshots/ss7.png)
 ![Screenshot 8](data/assets/screenshots/ss8.png)
+
+## Documentation / Dokümantasyon
+
+Tüm rehberler [`docs/`](docs/README.md) klasöründedir:
+
+- [Kurulum (INSTALL.md)](docs/INSTALL.md) — Meson, Arch betikleri (`run.sh`/`install.sh`/`PKGBUILD`), Debian paketi
+- [Mimari (ARCHITECTURE.md)](docs/ARCHITECTURE.md)
+- [Test Rehberi (TESTING.md)](docs/TESTING.md)
+- [Katkı Kuralları (CONTRIBUTING.md)](docs/CONTRIBUTING.md)
+- [Sürümleme (VERSION.md)](docs/VERSION.md) · [Değişiklikler (CHANGELOG.md)](docs/CHANGELOG.md)
+- [Veri Kaydetme](docs/DATA_SAVING_GUIDE.md) · [Self-Hosting](docs/SELF_HOSTING_GUIDE.md) · [Ödeme Entegrasyonu](docs/PAYMENT_INTEGRATION.md) · [Uygulama Bağlama](docs/UYGULAMA_BAGLAMA.md)
