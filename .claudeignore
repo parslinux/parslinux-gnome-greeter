@@ -1,0 +1,32 @@
+# .claudeignore — Claude/AI araçlarının okumaması gereken dosyalar
+
+# Derleme çıktıları
+build/
+builddir/
+*.pyc
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Paketleme geçici dizinleri
+debian/.debhelper/
+debian/parslinux-gnome-greeter/
+debian/tmp/
+obj-*/
+*.deb
+*.tar.xz
+*.tar.gz
+
+# Yerel geliştirme artıkları
+.env
+.venv/
+venv/
+.idea/
+.vscode/
+*.swp
+*~
+
+# Büyük ikili varlıklar (gerekirse istisna ekle)
+data/assets/**/*.jpg
+data/assets/**/*.png

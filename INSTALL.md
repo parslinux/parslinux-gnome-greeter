@@ -101,3 +101,25 @@ sudo apt remove parslinux-gnome-greeter
 
 - Uygulama `org.parslinux.parslinux-gnome-greeter` uygulama kimliği (application ID) ile çalışır; GSettings şemaları da bu kimliğe göredir.
 - İlk oturumda otomatik başlatma `data/autostart/` içindeki `.desktop` dosyası ile sağlanır; devre dışı bırakmak için dosyayı kaldırmanız yeterlidir.
+
+## Arch Linux
+
+### Seçenek 1: Betiklerle (hızlı)
+```bash
+sudo pacman -S --needed python python-gobject gtk4 libadwaita glib2 meson ninja gettext
+./install.sh --prefix /usr        # kurulum
+parslinux-gnome-greeter           # çalıştırma
+sudo ./uninstall.sh --prefix /usr # kaldırma
+```
+
+### Seçenek 2: PKGBUILD ile (paket olarak)
+```bash
+makepkg -si    # derle + bağımlılıkları kur + paketle
+```
+
+### Geliştirme modu
+```bash
+./run.sh            # kaynak kodundan doğrudan çalıştır (gresource'u otomatik derler)
+./run.sh --build    # data/ değiştiyse gresource'u yeniden derle
+./run.sh --meson    # meson/ninja ile tam derleyip build/ üzerinden çalıştır
+```

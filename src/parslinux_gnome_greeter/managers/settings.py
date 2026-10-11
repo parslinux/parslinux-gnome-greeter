@@ -1,4 +1,13 @@
-from gi.repository import Gio, GLib
+try:
+    from gi.repository import Gio, GLib
+except ImportError:
+    # GLib, bazı ortamlarda (ör. test iskeletlerinde) ayrı bir tip modülü
+    # olarak bulunmayabilir; Gio tek başına yeterliyse GLib'i ayrıca dene.
+    from gi.repository import Gio
+    try:
+        from gi.repository import GLib
+    except ImportError:
+        GLib = None
 import json
 
 class SettingsManager:

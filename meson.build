@@ -39,9 +39,16 @@ py_installation = python.find_installation('python3', required: true)
 # Get Python installation directory for dist-packages/site-packages
 # Use prefix to determine correct path (/usr vs /usr/local)
 prefix = get_option('prefix')
-if prefix == '/usr' or prefix.startswith('/usr/')
-    # System installation: use /usr/lib/python3/dist-packages
-    python_site_packages = join_paths('/usr/lib', 'python3', 'dist-packages')
+# Debian/Ubuntu "dist-packages" kullanır; Arch/Fedora gibi sistemlerde
+# py_installation.get_install_dir() doğru yolu (site-packages) verir.
+if host_machine.system() == 'linux' and prefix.startswith('/usr')
+    dist_packages = join_paths('/usr/lib', 'python3', 'dist-packages')
+    fs = import('fs')
+    if fs.is_dir(dist_packages)
+        python_site_packages = dist_packages
+    else
+        python_site_packages = py_installation.get_install_dir()
+    endif
 else
     # Local installation: use get_install_dir() which handles /usr/local correctly
     python_site_packages = py_installation.get_install_dir()
