@@ -1,10 +1,10 @@
-pardus-gnome-greeter (0.1.3) unstable; urgency=medium
+parslinux-gnome-greeter (0.1.3) unstable; urgency=medium
 
   * Update Turkish translations
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Mon, 24 Nov 2025 17:34:28 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Mon, 24 Nov 2025 17:34:28 +0300
 
-pardus-gnome-greeter (0.1.2) unstable; urgency=medium
+parslinux-gnome-greeter (0.1.2) unstable; urgency=medium
 
   [ Osman Coskun ]
   * fix(wallpaper): removed dublicated wp paths
@@ -13,9 +13,9 @@ pardus-gnome-greeter (0.1.2) unstable; urgency=medium
   * fix(about): app version
   * chore(build): update package data directory structure
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Mon, 24 Nov 2025 15:27:00 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Mon, 24 Nov 2025 15:27:00 +0300
 
-pardus-gnome-greeter (0.1.1) unstable; urgency=medium
+parslinux-gnome-greeter (0.1.1) unstable; urgency=medium
 
   [ Osman Coskun ]
   * feat(theme): icon theme translations
@@ -27,7 +27,7 @@ pardus-gnome-greeter (0.1.1) unstable; urgency=medium
   * feat(outro): redesign outro page
   * feat(applications): update button design
   * feat(extensions): added extension state management
-  * feat(extensions): added date format to pardus and 10 layouts.
+  * feat(extensions): added date format to ParsLinux and 10 layouts.
   * feat(navigation): implement navigation bar with previous and next buttons
   * feat(i18n): updated new translations
 
@@ -35,9 +35,9 @@ pardus-gnome-greeter (0.1.1) unstable; urgency=medium
   * Update app icon
   * Add install app icon as package name too
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Sun, 23 Nov 2025 15:54:12 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Sun, 23 Nov 2025 15:54:12 +0300
 
-pardus-gnome-greeter (0.1.0) unstable; urgency=medium
+parslinux-gnome-greeter (0.1.0) unstable; urgency=medium
 
   [ Osman Coskun ]
   * feat(layout): layout configuration and settings management
@@ -49,9 +49,9 @@ pardus-gnome-greeter (0.1.0) unstable; urgency=medium
   * feat(icon-themes): implement icon theme selection
   * chore(theme): theme folder image size changed
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Thu, 20 Nov 2025 11:56:23 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Thu, 20 Nov 2025 11:56:23 +0300
 
-pardus-gnome-greeter (0.1.0~beta1) unstable; urgency=medium
+parslinux-gnome-greeter (0.1.0~beta1) unstable; urgency=medium
 
   [ Hugo Carvalho ]
   * Update Portuguese translations
@@ -141,9 +141,9 @@ pardus-gnome-greeter (0.1.0~beta1) unstable; urgency=medium
   * fix(layout): added missing extension
   * fix(desktop_file): icon changed
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Mon, 27 Oct 2025 19:35:40 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Mon, 27 Oct 2025 19:35:40 +0300
 
-pardus-gnome-greeter (0.0.13) unstable; urgency=medium
+parslinux-gnome-greeter (0.0.13) unstable; urgency=medium
 
   [ Osman Coskun ]
   * feat(extension): New extension added - Bluetooth Batter Meter
@@ -156,9 +156,9 @@ pardus-gnome-greeter (0.0.13) unstable; urgency=medium
   * Update Turkish translations
   * Fix typo
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Mon, 07 Apr 2025 16:30:01 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Mon, 07 Apr 2025 16:30:01 +0300
 
-pardus-gnome-greeter (0.0.12) unstable; urgency=medium
+parslinux-gnome-greeter (0.0.12) unstable; urgency=medium
 
   [ vilez ]
   * feat: better support for XDG Base Directory
@@ -169,9 +169,9 @@ pardus-gnome-greeter (0.0.12) unstable; urgency=medium
   [ Fatih Altun ]
   * Update static appversion
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Thu, 28 Nov 2024 16:38:47 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Thu, 28 Nov 2024 16:38:47 +0300
 
-pardus-gnome-greeter (0.0.11) unstable; urgency=medium
+parslinux-gnome-greeter (0.0.11) unstable; urgency=medium
 
   [ migueldecode ]
   * feat: translate to spanish
@@ -182,7 +182,7 @@ pardus-gnome-greeter (0.0.11) unstable; urgency=medium
   * added spanish to linguas file
   * new instructions added
   * new instructions
-  * feat: shortcut added for pardus shortcuts
+  * feat: shortcut added for ParsLinux shortcuts
 
   [ Hugo Carvalho ]
   * Update Portuguese translations
@@ -191,9 +191,9 @@ pardus-gnome-greeter (0.0.11) unstable; urgency=medium
   * Fix typo on date control
   * Update version for next release
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Tue, 16 Jul 2024 12:22:59 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Tue, 16 Jul 2024 12:22:59 +0300
 
-pardus-gnome-greeter (0.0.10) unstable; urgency=medium
+parslinux-gnome-greeter (0.0.10) unstable; urgency=medium
 
   [ Osman Coskun ]
   * Update 'README.md'
@@ -228,24 +228,24 @@ pardus-gnome-greeter (0.0.10) unstable; urgency=medium
   * Update version for next release
   * Update copyright to 2024
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Tue, 16 Jan 2024 11:12:50 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Tue, 16 Jan 2024 11:12:50 +0300
 
-pardus-gnome-greeter (0.0.9) unstable; urgency=medium
+parslinux-gnome-greeter (0.0.9) unstable; urgency=medium
 
   [ Osman Coskun ]
   * fix: arcmenu 100th year support added
   * fix:type on special theme path
   * fix:typo
-  * fix: pardus layout 100th year theme
+  * fix: ParsLinux layout 100th year theme
   * fix: logic changed
   * fix: icon set removed from standart themes
 
   [ Fatih Altun ]
   * Update version for next release
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Sat, 28 Oct 2023 13:44:06 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Sat, 28 Oct 2023 13:44:06 +0300
 
-pardus-gnome-greeter (0.0.8) unstable; urgency=medium
+parslinux-gnome-greeter (0.0.8) unstable; urgency=medium
 
   [ Osman Coskun ]
   * fix: page order changed
@@ -255,7 +255,7 @@ pardus-gnome-greeter (0.0.8) unstable; urgency=medium
   * fix: icon and wallpaper added for default theme
   * fix: theme order changed
   * fix: application wasnt closed on quit button
-  * fix: app doesnt start without pardus-yuzyil package
+  * fix: app doesnt start without ParsLinux-yuzyil package
 
   [ Fatih Altun ]
   * Fix typo on special theme control
@@ -269,14 +269,14 @@ pardus-gnome-greeter (0.0.8) unstable; urgency=medium
   * Update version for new release
   * Fix duplicate
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Fri, 27 Oct 2023 16:48:58 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Fri, 27 Oct 2023 16:48:58 +0300
 
-pardus-gnome-greeter (0.0.7) unstable; urgency=medium
+parslinux-gnome-greeter (0.0.7) unstable; urgency=medium
 
   [ Hugo Carvalho ]
   * Add Portuguese translations
   * Update Portuguese translations
-  * Update tr.org.pardus.pardus-gnome-greeter.desktop
+  * Update tr.org.ParsLinux.parslinux-gnome-greeter.desktop
 
   [ Fatih Altun ]
   * Add missing no-annoyance extension depends
@@ -285,20 +285,20 @@ pardus-gnome-greeter (0.0.7) unstable; urgency=medium
   * fix: wallpaper setting on both dark/light modes
 
   [ Fatih Altun ]
-  * Add breaks for pardus-welcome
+  * Add breaks for ParsLinux-welcome
   * Update version
   * Update about menu icon
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Tue, 24 Oct 2023 17:08:16 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Tue, 24 Oct 2023 17:08:16 +0300
 
-pardus-gnome-greeter (0.0.6) unstable; urgency=medium
+parslinux-gnome-greeter (0.0.6) unstable; urgency=medium
 
   [ Hugo Carvalho ]
   * Update Portuguese translation
   * Update Portuguese translation
 
   [ Osman Coskun ]
-  * fix: pardus icon size
+  * fix: ParsLinux icon size
   * fix: Application title fixed
   * feat: desktop icons added
   * feat: nautilus and desktop icon scaling added
@@ -313,16 +313,16 @@ pardus-gnome-greeter (0.0.6) unstable; urgency=medium
   * Update version for next release
   * Update xp config menu button size
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Tue, 29 Aug 2023 19:40:23 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Tue, 29 Aug 2023 19:40:23 +0300
 
-pardus-gnome-greeter (0.0.5) unstable; urgency=medium
+parslinux-gnome-greeter (0.0.5) unstable; urgency=medium
 
   [ Sabri Ünal ]
   * data: Correct some translation errors
 
   [ Hugo Carvalho ]
   * Add portuguese translation
-  * Create pardus-gnome-greeter
+  * Create parslinux-gnome-greeter
   * Add pt
 
   [ Fatih Altun ]
@@ -333,7 +333,7 @@ pardus-gnome-greeter (0.0.5) unstable; urgency=medium
 
   [ Hugo Carvalho ]
   * Update Portuguese translation
-  * Delete pardus-gnome-greeter
+  * Delete parslinux-gnome-greeter
   * Update Portuguese translation
   * Update Portuguese translation
   * Update Portuguese translation
@@ -344,18 +344,18 @@ pardus-gnome-greeter (0.0.5) unstable; urgency=medium
   * Add rounded-window-corners to depends
   * Add gtk3-theme-switcher to depends
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Mon, 28 Aug 2023 19:21:58 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Mon, 28 Aug 2023 19:21:58 +0300
 
-pardus-gnome-greeter (0.0.4) unstable; urgency=medium
+parslinux-gnome-greeter (0.0.4) unstable; urgency=medium
 
   * Add missing clicked signal to shortcut button
   * Fix translatable value of gif
   * Fix apps api url
   * Add unselect to clicked app
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Fri, 25 Aug 2023 13:05:08 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Fri, 25 Aug 2023 13:05:08 +0300
 
-pardus-gnome-greeter (0.0.3) unstable; urgency=medium
+parslinux-gnome-greeter (0.0.3) unstable; urgency=medium
 
   [ Osman Coskun ]
   * translation fixed. GLib idle added
@@ -367,12 +367,12 @@ pardus-gnome-greeter (0.0.3) unstable; urgency=medium
   * Add 'data/po/LINGUAS'
   * Add 'data/po/POTFILES'
   * fixed typo in meson
-  * Pardus layout added. typos fixed
-  * pardus layout added
+  * ParsLinux layout added. typos fixed
+  * ParsLinux layout added
   * css added. minor fixes applied
-  * iconview css added. pardus layout gif added
+  * iconview css added. ParsLinux layout gif added
   * legacy applications dark / light theme support added
-  * pardus icon added for layout
+  * ParsLinux icon added for layout
   * typo fixed. app removed after first run
   * system conf changed
   * about dialog icon fixed
@@ -388,7 +388,7 @@ pardus-gnome-greeter (0.0.3) unstable; urgency=medium
   * fix: layout issue
   * update: keywords updated
   * fix: pinned apps
-  * fix: pardus layout image. feat: user extensions enabled
+  * fix: ParsLinux layout image. feat: user extensions enabled
   * fix: gnome default wallpapers and subfolders are removed
 
   [ Fatih Altun ]
@@ -397,17 +397,17 @@ pardus-gnome-greeter (0.0.3) unstable; urgency=medium
   * Update caffeine image
   * Add live control for welcome
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Thu, 24 Aug 2023 22:02:18 +0300
+ -- Fatih Altun <fatih.altun@parslinux.org.tr>  Thu, 24 Aug 2023 22:02:18 +0300
 
-pardus-gnome-greeter (0.0.2) unstable; urgency=medium
+parslinux-gnome-greeter (0.0.2) unstable; urgency=medium
 
   * Keybinding added.
 
- -- Osman Coskun <osman.coskun@pardus.org.tr>  Fri, 20 Jan 2023 13:19:20 +0300
+ -- Osman Coskun <osman.coskun@parslinux.org.tr>  Fri, 20 Jan 2023 13:19:20 +0300
 
-pardus-gnome-greeter (0.0.1) unstable; urgency=medium
+parslinux-gnome-greeter (0.0.1) unstable; urgency=medium
 
   * Initial release
   * Created layout files and assets
 
- -- Osman Coskun <osman.coskun@pardus.org.tr>  Fri 20 Jan 2023 01:19:20 +0300
+ -- Osman Coskun <osman.coskun@parslinux.org.tr>  Fri 20 Jan 2023 01:19:20 +0300

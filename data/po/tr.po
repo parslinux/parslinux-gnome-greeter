@@ -1,8 +1,8 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the parslinux-gnome-greeter package.
-# FIRST AUTHOR <osman.coskun@pardus.org.tr>, 2023.
-# Fatih Altun <fatih.altun@pardus.org.tr>, 2025.
+# FIRST AUTHOR <osman.coskun@parslinux.org.tr>, 2023.
+# Fatih Altun <fatih.altun@parslinux.org.tr>, 2025.
 #
 msgid ""
 msgstr ""
@@ -10,8 +10,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-23 14:05+0300\n"
 "PO-Revision-Date: 2025-11-24 17:33+0300\n"
-"Last-Translator: Fatih Altun <fatih.altun@pardus.org.tr>\n"
-"Language-Team: Turkish <dev@pardus.org.tr>\n"
+"Last-Translator: Fatih Altun <fatih.altun@parslinux.org.tr>\n"
+"Language-Team: Turkish <dev@parslinux.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -182,8 +182,8 @@ msgid "Extra Large"
 msgstr "Çok Büyük"
 
 #: src/parslinux_gnome_greeter/components/AboutDialog.py:23
-msgid "Fatih Altun <fatih.altun@pardus.org.tr>"
-msgstr "Fatih Altun <fatih.altun@pardus.org.tr>"
+msgid "Fatih Altun <fatih.altun@parslinux.org.tr>"
+msgstr "Fatih Altun <fatih.altun@parslinux.org.tr>"
 
 #: src/parslinux_gnome_greeter/pages/display.py:135
 msgid "File Manager Icon Size"
@@ -272,8 +272,8 @@ msgstr "Tamam"
 
 #: src/parslinux_gnome_greeter/components/AboutDialog.py:21
 #: src/parslinux_gnome_greeter/components/AboutDialog.py:23
-msgid "Osman Coskun <osman.coskun@pardus.org.tr>"
-msgstr "Osman Coşkun <osman.coskun@pardus.org.tr>"
+msgid "Osman Coskun <osman.coskun@parslinux.org.tr>"
+msgstr "Osman Coşkun <osman.coskun@parslinux.org.tr>"
 
 #: src/parslinux_gnome_greeter/pages/theme.py:65
 msgid "Pars Linux Brown"

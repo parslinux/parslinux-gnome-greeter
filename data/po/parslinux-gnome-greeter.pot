@@ -176,7 +176,7 @@ msgid "Extra Large"
 msgstr ""
 
 #: src/parslinux_gnome_greeter/components/AboutDialog.py:23
-msgid "Fatih Altun <fatih.altun@pardus.org.tr>"
+msgid "Fatih Altun <fatih.altun@parslinux.org.tr>"
 msgstr ""
 
 #: src/parslinux_gnome_greeter/pages/display.py:135
@@ -265,7 +265,7 @@ msgstr ""
 
 #: src/parslinux_gnome_greeter/components/AboutDialog.py:21
 #: src/parslinux_gnome_greeter/components/AboutDialog.py:23
-msgid "Osman Coskun <osman.coskun@pardus.org.tr>"
+msgid "Osman Coskun <osman.coskun@parslinux.org.tr>"
 msgstr ""
 
 #: src/parslinux_gnome_greeter/pages/theme.py:65

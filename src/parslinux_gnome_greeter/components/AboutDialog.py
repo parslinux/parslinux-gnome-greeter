@@ -16,9 +16,9 @@ def create_about_dialog(parent=None):
     )
     dialog.set_website('https://github.com/parslinux/parslinux-gnome-greeter')
     dialog.set_issue_url('https://github.com/parslinux/parslinux-gnome-greeter/issues')
-    dialog.set_translator_credits(_('Osman Coskun <osman.coskun@pardus.org.tr>'))
+    dialog.set_translator_credits(_('Osman Coskun <osman.coskun@parslinux.org.tr>'))
     dialog.set_copyright(_('© 2025 ParsLinux Team'))
-    dialog.set_developers([_('Osman Coskun <osman.coskun@pardus.org.tr>'), ('Fatih Altun <fatih.altun@pardus.org.tr>')])
+    dialog.set_developers([_('Osman Coskun <osman.coskun@parslinux.org.tr>'), ('Fatih Altun <fatih.altun@parslinux.org.tr>')])
     return dialog
 
 def _get_version():
