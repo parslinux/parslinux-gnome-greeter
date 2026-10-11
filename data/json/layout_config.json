@@ -1,6 +1,6 @@
 {
     "always_enabled_extensions": [
-        "gtk3-accent-sync@pardus.org.tr",
+        "gtk3-accent-sync@parslinux.org.tr",
         "gtk3-theme-switcher@adwgtk3",
         "appindicatorsupport@rgcjonas.gmail.com"
     ],
@@ -211,7 +211,7 @@
             {
                 "schema": "org.gnome.shell.extensions.dash-to-panel",
                 "key": "show-apps-icon-file",
-                "value": "/usr/share/pardus/gnome-settings/start-pardus-gnome-25.svg"
+                "value": "/usr/share/parslinux/gnome-settings/start-parslinux-gnome-25.svg"
             }
         ]
     },
@@ -299,7 +299,7 @@
             {
                 "schema": "org.gnome.shell.extensions.arcmenu",
                 "key": "custom-menu-button-text",
-                "value": "Pardus"
+                "value": "ParsLinux"
             },
             {
                 "schema": "org.gnome.shell.extensions.dash-to-panel",
@@ -323,7 +323,7 @@
             }
         ]
     },
-    "pardus": {
+    "parslinux": {
         "enable": [
             "dash-to-panel@jderose9.github.com",
             "blur-my-shell@aunetx",
@@ -357,7 +357,7 @@
             {
                 "schema": "org.gnome.shell.extensions.dash-to-panel",
                 "key": "show-apps-icon-file",
-                "value": "/usr/share/pardus/gnome-settings/start-pardus-gnome-25.svg"
+                "value": "/usr/share/parslinux/gnome-settings/start-parslinux-gnome-25.svg"
             }
         ]
     }

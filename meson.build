@@ -1,20 +1,20 @@
-project('pardus-gnome-greeter', 'c',
+project('parslinux-gnome-greeter', 'c',
     version: '0.0.13',
     meson_version: '>= 0.60.0'
 )
 
-application_id = 'tr.org.pardus.pardus-gnome-greeter'
+application_id = 'org.parslinux.parslinux-gnome-greeter'
 project_name = meson.project_name()
 prefix = get_option('prefix')
 datadir = join_paths(prefix, get_option('datadir'))
-pkgdatadir = join_paths(datadir,'pardus', project_name)
+pkgdatadir = join_paths(datadir,'parslinux', project_name)
 
 # GResource
 gnome = import('gnome')
 gresource_target = custom_target(
-    'pardus-gnome-greeter-gresource',
-    input: 'pardus-gnome-greeter.gresource.xml',
-    output: 'pardus-gnome-greeter.gresource',
+    'parslinux-gnome-greeter-gresource',
+    input: 'parslinux-gnome-greeter.gresource.xml',
+    output: 'parslinux-gnome-greeter.gresource',
     command: [
         'glib-compile-resources',
         '--target=@OUTPUT@',
@@ -27,12 +27,12 @@ gresource_target = custom_target(
 
 # Python sources - Install to pkgdatadir for application use
 install_subdir(
-    'src/pardus_gnome_greeter',
+    'src/parslinux_gnome_greeter',
     install_dir: pkgdatadir
 )
 
 # Python package - Install to dist-packages for library use
-# This allows users to import pardus_gnome_greeter in their Python scripts
+# This allows users to import parslinux_gnome_greeter in their Python scripts
 python = import('python')
 py_installation = python.find_installation('python3', required: true)
 
@@ -51,7 +51,7 @@ endif
 # Exclude __main__.py as it's only for application entry point
 # Exclude __pycache__ directories
 install_subdir(
-    'src/pardus_gnome_greeter',
+    'src/parslinux_gnome_greeter',
     install_dir: python_site_packages,
     exclude_directories: ['__pycache__'],
     exclude_files: ['__main__.py']
@@ -60,7 +60,7 @@ install_subdir(
 
 # Executable script
 configure_file(
-    input: 'pardus-gnome-greeter.in',
+    input: 'parslinux-gnome-greeter.in',
     output: project_name,
     configuration: {
         'PYTHON': '/usr/bin/python3',
@@ -72,20 +72,20 @@ configure_file(
 
 # AppData file
 install_data(
-    'tr.org.pardus.pardus-gnome-greeter.appdata.xml.in',
+    'org.parslinux.parslinux-gnome-greeter.appdata.xml.in',
     install_dir: join_paths(datadir, 'metainfo'),
     rename: application_id + '.appdata.xml'
 )
 
 # Icon
 install_data(
-    'data/icons/pardus-gnome-greeter.svg',
+    'data/icons/parslinux-gnome-greeter.svg',
     install_dir: join_paths(datadir, 'icons', 'hicolor', 'scalable', 'apps'),
     rename: application_id + '.svg'
 )
 
 install_data(
-    'data/icons/pardus-gnome-greeter.svg',
+    'data/icons/parslinux-gnome-greeter.svg',
     install_dir: join_paths(datadir, 'icons', 'hicolor', 'scalable', 'apps')
 )
 
@@ -116,7 +116,7 @@ subdir('data/schemas')
 subdir('debian')
 
 install_data(
-    'data/autostart/tr.org.pardus.pardus-gnome-greeter-autostart.desktop',
+    'data/autostart/org.parslinux.parslinux-gnome-greeter-autostart.desktop',
     install_dir: join_paths(get_option('sysconfdir'), 'xdg', 'autostart')
 )
 
@@ -129,7 +129,7 @@ install_subdir('data/ui', install_dir: pkgdatadir)
 # Desktop file
 i18n = import('i18n')
 desktop_file = i18n.merge_file(
-    input: 'tr.org.pardus.pardus-gnome-greeter.desktop.in',
+    input: 'org.parslinux.parslinux-gnome-greeter.desktop.in',
     output: application_id + '.desktop',
     po_dir: join_paths(meson.current_source_dir(), 'data', 'po'),
     type: 'desktop',

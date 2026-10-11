@@ -20,14 +20,14 @@ def load_gresource():
     # Simplified dev environment check
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
     build_dir = os.path.join(project_root, 'build')
-    resource_path = os.path.join(build_dir, 'pardus-gnome-greeter.gresource')
+    resource_path = os.path.join(build_dir, 'parslinux-gnome-greeter.gresource')
 
     if os.path.exists(build_dir) and os.path.exists(resource_path):
         # Development environment
         pass
     else:
         # Installed environment
-        resource_path = "/usr/share/pardus/pardus-gnome-greeter/pardus-gnome-greeter.gresource"
+        resource_path = "/usr/share/parslinux/parslinux-gnome-greeter/parslinux-gnome-greeter.gresource"
 
     try:
         resource = Gio.resource_load(resource_path)
@@ -46,11 +46,11 @@ from .main_window import MainWindow
 from .managers.settings import app_settings
 from .managers.ShortcutManager import ShortcutManager
 
-class PardusGreeterApplication(Adw.Application):
+class ParsLinuxGreeterApplication(Adw.Application):
     """The main application."""
 
     def __init__(self):
-        super().__init__(application_id='tr.org.pardus.pardus-gnome-greeter',
+        super().__init__(application_id='org.parslinux.parslinux-gnome-greeter',
                          flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE)
         self.win = None
         self.is_first_run_check = False
@@ -111,7 +111,7 @@ class PardusGreeterApplication(Adw.Application):
 
 def main():
     """The main entry point of the application."""
-    app = PardusGreeterApplication()
+    app = ParsLinuxGreeterApplication()
     return app.run(sys.argv)
 
 if __name__ == '__main__':

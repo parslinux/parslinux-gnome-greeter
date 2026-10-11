@@ -19,10 +19,10 @@
             
             <property name="vexpand">true</property>
             
-            <!-- Pardus Software Center Image -->
+            <!-- ParsLinux Software Center Image -->
             <child>
               <object class="GtkPicture">
-                <property name="file">resource:///tr/org/pardus/pardus-gnome-greeter/assets/pardus-software-center.png</property>
+                <property name="file">resource:///org/parslinux/parslinux-gnome-greeter/assets/parslinux-software-center.png</property>
                 <property name="halign">center</property>
                 <property name="can-shrink">true</property>
                 <property name="width-request">200</property>
@@ -33,7 +33,7 @@
             <!-- Title Label -->
             <child>
               <object class="GtkLabel">
-                <property name="label" translatable="yes">Pardus Software Center Renewed</property>
+                <property name="label" translatable="yes">ParsLinux Software Center Renewed</property>
                 <property name="halign">center</property>
                 <property name="justify">center</property>
                 <style>

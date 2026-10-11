@@ -14,7 +14,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'managers'))
 from ..managers.WallpaperManager import WallpaperManager
 
 # WallpaperThumbnail template class
-@Gtk.Template(resource_path='/tr/org/pardus/pardus-gnome-greeter/ui/components/WallpaperThumbnail.ui')
+@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/components/WallpaperThumbnail.ui')
 class WallpaperThumbnail(Gtk.Box):
     __gtype_name__ = 'WallpaperThumbnail'
     
@@ -66,7 +66,7 @@ class WallpaperThumbnail(Gtk.Box):
         """Get selection state"""
         return self._selected
 
-@Gtk.Template(resource_path='/tr/org/pardus/pardus-gnome-greeter/ui/WallpaperPage.ui')
+@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/WallpaperPage.ui')
 class WallpaperPage(Adw.PreferencesPage):
     __gtype_name__ = 'WallpaperPage'
     
@@ -206,11 +206,11 @@ class WallpaperPage(Adw.PreferencesPage):
             print(f"Error setting wallpaper: {e}")
     
     def on_live_wallpaper_clicked(self, row):
-        """Handle Pardus Live Wallpaper button click"""
+        """Handle ParsLinux Live Wallpaper button click"""
         try:
             # Try to open extension preferences
             # First check if extension is installed
-            extension_uuid = "pardus-wallpaper-extension@pardus.org.tr"
+            extension_uuid = "parslinux-wallpaper-extension@parslinux.org.tr"
             
             # Try to open extension preferences using gnome-extensions
             result = os.system(f"gnome-extensions prefs {extension_uuid} 2>/dev/null")
@@ -220,7 +220,7 @@ class WallpaperPage(Adw.PreferencesPage):
                 dialog = Adw.MessageDialog.new(
                     self.get_root(),
                     _("Extension Not Found"),
-                    _("Pardus Live Wallpaper extension is not installed. Please install it from GNOME Extensions.")
+                    _("ParsLinux Live Wallpaper extension is not installed. Please install it from GNOME Extensions.")
                 )
                 dialog.add_response("ok", _("OK"))
                 dialog.set_default_response("ok")

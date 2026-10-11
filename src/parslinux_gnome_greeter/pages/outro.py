@@ -5,7 +5,7 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Gtk, Adw
 
-@Gtk.Template(resource_path='/tr/org/pardus/pardus-gnome-greeter/ui/OutroPage.ui')
+@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/OutroPage.ui')
 class OutroPage(Adw.PreferencesPage):
     __gtype_name__ = 'OutroPage'
     
@@ -23,10 +23,10 @@ class OutroPage(Adw.PreferencesPage):
         self.explore_button.connect("clicked", self.on_explore_clicked)
         
         # Connect link buttons
-        self.btn_website.connect("clicked", self.on_link_clicked, "https://www.pardus.org.tr/")
-        self.btn_docs.connect("clicked", self.on_link_clicked, "https://belge.pardus.org.tr/")
-        self.btn_community.connect("clicked", self.on_link_clicked, "https://gonullu.pardus.org.tr/")
-        self.btn_forum.connect("clicked", self.on_link_clicked, "https://forum.pardus.org.tr/")
+        self.btn_website.connect("clicked", self.on_link_clicked, "https://www.parslinux.org.tr/")
+        self.btn_docs.connect("clicked", self.on_link_clicked, "https://belge.parslinux.org.tr/")
+        self.btn_community.connect("clicked", self.on_link_clicked, "https://gonullu.parslinux.org.tr/")
+        self.btn_forum.connect("clicked", self.on_link_clicked, "https://forum.parslinux.org.tr/")
 
     def on_explore_clicked(self, button):
         root = self.get_root()

@@ -7,4 +7,4 @@ cmd = ['bash', '-c', 'head -n 1 changelog | sed "s/.*(//g;s/).*//g" > '+meson.cu
 # Create a custom target
 run_command(cmd, check:true)
 
-install_data(meson.current_build_dir() / output_file, install_dir : '/usr/share/pardus/pardus-gnome-greeter')
+install_data(meson.current_build_dir() / output_file, install_dir : '/usr/share/parslinux/parslinux-gnome-greeter')

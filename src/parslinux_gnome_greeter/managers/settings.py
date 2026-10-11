@@ -39,7 +39,7 @@ class SettingsManager:
 
 
 # Application specific settings
-app_settings = SettingsManager("tr.org.pardus.pardus-gnome-greeter")
+app_settings = SettingsManager("org.parslinux.parslinux-gnome-greeter")
 
 # GNOME Desktop Interface settings (for themes, fonts, etc.)
 theme_settings = SettingsManager("org.gnome.desktop.interface")

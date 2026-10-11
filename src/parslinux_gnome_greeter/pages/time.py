@@ -13,7 +13,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'managers'))
 from ..managers.ExtensionManager import ExtensionManager
 from ..managers.ThemeManager import ThemeManager
 
-@Gtk.Template(resource_path='/tr/org/pardus/pardus-gnome-greeter/ui/TimePage.ui')
+@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/TimePage.ui')
 class TimePage(Adw.PreferencesPage):
     __gtype_name__ = 'TimePage'
     

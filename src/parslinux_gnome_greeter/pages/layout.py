@@ -59,7 +59,7 @@ class GifPaintable(GObject.Object, Gdk.Paintable):
         texture.snapshot(snapshot, width, height)
 
 
-@Gtk.Template(resource_path='/tr/org/pardus/pardus-gnome-greeter/ui/LayoutPage.ui')
+@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/LayoutPage.ui')
 class LayoutPage(Adw.PreferencesPage):
     __gtype_name__ = 'LayoutPage'
     
@@ -98,11 +98,11 @@ class LayoutPage(Adw.PreferencesPage):
             'ubuntu': {'name': _('Ubuntu Style'), 'description': _('Ubuntu Unity-like experience')},
             '10': {'name': _('10'), 'description': _('Windows 10 taskbar layout')},
             'xp': {'name': _('XP'), 'description': _('Classic Windows XP experience')},
-            'pardus': {'name': _('Pardus Style'), 'description': _('Custom Pardus desktop layout')}
+            'parslinux': {'name': _('ParsLinux Style'), 'description': _('Custom ParsLinux desktop layout')}
         }
         
         # Fixed 2x3 grid layout
-        layout_order = ['gnome', 'mac', 'ubuntu', '10', 'xp', 'pardus']
+        layout_order = ['gnome', 'mac', 'ubuntu', '10', 'xp', 'parslinux']
         
         row, col = 0, 0
         for layout_name in layout_order:
@@ -166,7 +166,7 @@ class LayoutPage(Adw.PreferencesPage):
         picture.add_css_class("layout-image")
         
         # Load static image initially from gresource
-        static_path = f"/tr/org/pardus/pardus-gnome-greeter/assets/layouts/layout-{layout_id}.svg"
+        static_path = f"/org/parslinux/parslinux-gnome-greeter/assets/layouts/layout-{layout_id}.svg"
         try:
             file = Gio.File.new_for_uri(f'resource://{static_path}')
             if file.query_exists():
@@ -205,7 +205,7 @@ class LayoutPage(Adw.PreferencesPage):
         card.picture = picture
         card.layout_id = layout_id
         card.static_path = static_path
-        card.gif_path = f"/tr/org/pardus/pardus-gnome-greeter/assets/layouts/layout-{layout_id}.gif"
+        card.gif_path = f"/org/parslinux/parslinux-gnome-greeter/assets/layouts/layout-{layout_id}.gif"
         
         # Connect signals
         card.connect("clicked", self._on_layout_selected)

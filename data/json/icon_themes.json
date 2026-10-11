@@ -5,18 +5,18 @@
         "theme": "Adwaita"
     },
     {
-        "name": "Pardus Default",
-        "icon": "pardus-default.svg",
-        "theme": "pardus-gnome"
+        "name": "ParsLinux Default",
+        "icon": "parslinux-default.svg",
+        "theme": "parslinux-gnome"
     },
     {
-        "name": "Pardus Brown",
-        "icon": "pardus-brown.svg",
-        "theme": "pardus-gnome-brown"
+        "name": "ParsLinux Brown",
+        "icon": "parslinux-brown.svg",
+        "theme": "parslinux-gnome-brown"
     },
     {
-        "name": "Pardus Gray",
-        "icon": "pardus-gray.svg",
-        "theme": "pardus-gnome-gray"
+        "name": "ParsLinux Gray",
+        "icon": "parslinux-gray.svg",
+        "theme": "parslinux-gnome-gray"
     }
 ]

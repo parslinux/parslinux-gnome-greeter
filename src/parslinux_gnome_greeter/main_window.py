@@ -18,7 +18,7 @@ from .pages.time import TimePage
 from .pages.outro import OutroPage
 from .components.AboutDialog import create_about_dialog
 
-@Gtk.Template(resource_path='/tr/org/pardus/pardus-gnome-greeter/ui/MainWindow.ui')
+@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/MainWindow.ui')
 class MainWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'MainWindow'
 
@@ -32,7 +32,7 @@ class MainWindow(Adw.ApplicationWindow):
 
         # Load custom CSS
         css_provider = Gtk.CssProvider()
-        css_provider.load_from_resource('/tr/org/pardus/pardus-gnome-greeter/css/style.css')
+        css_provider.load_from_resource('/org/parslinux/parslinux-gnome-greeter/css/style.css')
         Gtk.StyleContext.add_provider_for_display(
             self.get_display(),
             css_provider,

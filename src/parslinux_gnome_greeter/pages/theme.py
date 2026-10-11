@@ -14,7 +14,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'managers'))
 from ..managers.ThemeManager import ThemeManager
 
-@Gtk.Template(resource_path='/tr/org/pardus/pardus-gnome-greeter/ui/ThemePage.ui')
+@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/ThemePage.ui')
 class ThemePage(Adw.PreferencesPage):
     __gtype_name__ = 'ThemePage'
     
@@ -57,19 +57,19 @@ class ThemePage(Adw.PreferencesPage):
                 "theme": "Adwaita"
             },
             {
-                "name": _("Pardus Default"),
-                "icon": "pardus-default.svg",
-                "theme": "pardus-gnome"
+                "name": _("ParsLinux Default"),
+                "icon": "parslinux-default.svg",
+                "theme": "parslinux-gnome"
             },
             {
-                "name": _("Pardus Brown"),
-                "icon": "pardus-brown.svg",
-                "theme": "pardus-gnome-brown"
+                "name": _("ParsLinux Brown"),
+                "icon": "parslinux-brown.svg",
+                "theme": "parslinux-gnome-brown"
             },
             {
-                "name": _("Pardus Gray"),
-                "icon": "pardus-gray.svg",
-                "theme": "pardus-gnome-gray"
+                "name": _("ParsLinux Gray"),
+                "icon": "parslinux-gray.svg",
+                "theme": "parslinux-gnome-gray"
             }
         ]
         
@@ -94,7 +94,7 @@ class ThemePage(Adw.PreferencesPage):
                 box.set_halign(Gtk.Align.CENTER)
                 box.set_valign(Gtk.Align.CENTER)
 
-                img_resource_path = f"/tr/org/pardus/pardus-gnome-greeter/assets/icon-themes/{icon}"
+                img_resource_path = f"/org/parslinux/parslinux-gnome-greeter/assets/icon-themes/{icon}"
                 img = Gtk.Image.new_from_resource(img_resource_path)
                 img.set_pixel_size(48)
                 

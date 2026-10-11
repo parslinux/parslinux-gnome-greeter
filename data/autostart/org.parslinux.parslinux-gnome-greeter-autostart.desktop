@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=ParsLinux GNOME Greeter
+Comment=Set up your ParsLinux GNOME experience
+Exec=parslinux-gnome-greeter --first-run
+Icon=parslinux-gnome-greeter
+Terminal=false
+NoDisplay=true
+X-GNOME-Autostart-enabled=true
+Categories=GNOME;GTK;Settings;

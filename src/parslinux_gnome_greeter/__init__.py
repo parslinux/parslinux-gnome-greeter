@@ -1,7 +1,7 @@
 """
-Pardus GNOME Greeter - Managers and components
+ParsLinux GNOME Greeter - Managers and components
 
-This package contains managers and components from the Pardus GNOME Greeter
+This package contains managers and components from the ParsLinux GNOME Greeter
 application. Users can import this package in their Python projects to
 manage GNOME desktop settings.
 """

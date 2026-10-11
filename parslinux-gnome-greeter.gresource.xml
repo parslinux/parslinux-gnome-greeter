@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/tr/org/pardus/pardus-gnome-greeter">
+  <gresource prefix="/org/parslinux/parslinux-gnome-greeter">
     <!-- UI Files -->
     <file>ui/MainWindow.ui</file>
     <file>ui/WelcomePage.ui</file>
@@ -39,12 +39,12 @@
     <!-- General Assets -->
     <file>assets/logo.svg</file>
     <file>assets/banner.png</file>
-    <file>assets/pardus-software-center.png</file>
+    <file>assets/parslinux-software-center.png</file>
     <file>assets/outro.png</file>
     <file>assets/cursor.svg</file>
     <file>assets/discord.svg</file>
     <file>assets/medium.svg</file>
-    <file>assets/pardus-software.svg</file>
+    <file>assets/parslinux-software.svg</file>
     
     <!-- Extension Assets -->
     <file>assets/extensions/annoyance-screenshot.png</file>
@@ -63,13 +63,13 @@
     <file>assets/layouts/layout-10.gif</file>
     <file>assets/layouts/layout-gnome.gif</file>
     <file>assets/layouts/layout-mac.gif</file>
-    <file>assets/layouts/layout-pardus.gif</file>
+    <file>assets/layouts/layout-parslinux.gif</file>
     <file>assets/layouts/layout-ubuntu.gif</file>
     <file>assets/layouts/layout-xp.gif</file>
     <file>assets/layouts/layout-10.svg</file>
     <file>assets/layouts/layout-gnome.svg</file>
     <file>assets/layouts/layout-mac.svg</file>
-    <file>assets/layouts/layout-pardus.svg</file>
+    <file>assets/layouts/layout-parslinux.svg</file>
     <file>assets/layouts/layout-ubuntu.svg</file>
     <file>assets/layouts/layout-xp.svg</file>
     
@@ -105,8 +105,8 @@
     <file>icons/community-symbolic.svg</file>
     <file>icons/forum-symbolic.svg</file>
     <file>assets/icon-themes/gnome-default.svg</file>
-    <file>assets/icon-themes/pardus-brown.svg</file>
-    <file>assets/icon-themes/pardus-default.svg</file>
-    <file>assets/icon-themes/pardus-gray.svg</file>
+    <file>assets/icon-themes/parslinux-brown.svg</file>
+    <file>assets/icon-themes/parslinux-default.svg</file>
+    <file>assets/icon-themes/parslinux-gray.svg</file>
   </gresource>
 </gresources> 

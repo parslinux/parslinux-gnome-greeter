@@ -2,7 +2,7 @@ import gettext
 import builtins
 from pathlib import Path
 
-APP_NAME = "pardus-gnome-greeter"
+APP_NAME = "parslinux-gnome-greeter"
 
 def init_translation():
     """Initializes gettext for the application."""

@@ -39,7 +39,7 @@
       "enabled": true,
       "api_url": "https://www.reddit.com/r/wallpaper/top.json?t=day&limit=10",
       "headers": {
-        "User-Agent": "PardusGnomeGreeter/1.0 (https://github.com/pardus/pardus-gnome-greeter)"
+        "User-Agent": "ParsLinuxGnomeGreeter/1.0 (https://github.com/parslinux/parslinux-gnome-greeter)"
       },
       "response_mapping": {
         "data_path": "data.children.{index}.data",
@@ -81,7 +81,7 @@
       "enabled": true,
       "api_url": "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY",
       "headers": {
-        "User-Agent": "PardusGnomeGreeter/1.0 (https://github.com/pardus/pardus-gnome-greeter) Python/requests"
+        "User-Agent": "ParsLinuxGnomeGreeter/1.0 (https://github.com/parslinux/parslinux-gnome-greeter) Python/requests"
       },
       "rate_limit": {
         "requests_per_hour": 30,
@@ -152,7 +152,7 @@
       "enabled": true,
       "api_url": "https://en.wikipedia.org/api/rest_v1/feed/featured/{year}/{month:02d}/{day:02d}",
       "headers": {
-        "User-Agent": "PardusGnomeGreeter/1.0 (https://github.com/pardus/pardus-gnome-greeter) Python/requests"
+        "User-Agent": "ParsLinuxGnomeGreeter/1.0 (https://github.com/parslinux/parslinux-gnome-greeter) Python/requests"
       },
       "response_mapping": {
         "data_path": "image",

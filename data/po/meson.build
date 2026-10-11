@@ -2,7 +2,7 @@
 i18n = import('i18n')
 
 # Define the gettext package name
-gettext_package = 'pardus-gnome-greeter'
+gettext_package = 'parslinux-gnome-greeter'
 
 # Process the translations
 i18n.gettext(meson.project_name(), preset: 'glib') 

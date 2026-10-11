@@ -6,7 +6,7 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Gtk, Adw
 
-@Gtk.Template(resource_path='/tr/org/pardus/pardus-gnome-greeter/ui/ApplicationsPage.ui')
+@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/ApplicationsPage.ui')
 class ApplicationsPage(Adw.PreferencesPage):
     __gtype_name__ = 'ApplicationsPage'
 
@@ -16,10 +16,10 @@ class ApplicationsPage(Adw.PreferencesPage):
     
     @Gtk.Template.Callback()
     def on_open_store_clicked(self, button):
-        """Open Pardus Software Center"""
+        """Open ParsLinux Software Center"""
         try:
-            subprocess.Popen(["pardus-software"])
+            subprocess.Popen(["parslinux-software"])
         except FileNotFoundError:
-            print("Pardus Software Center not found")
+            print("ParsLinux Software Center not found")
         except Exception as e:
-            print(f"Error opening Pardus Software Center: {e}") 
+            print(f"Error opening ParsLinux Software Center: {e}") 

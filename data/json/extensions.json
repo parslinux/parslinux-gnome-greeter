@@ -1,44 +1,44 @@
 [
   {
-    "logo": "/tr/org/pardus/pardus-gnome-greeter/assets/extensions/drive-menu-icon.png",
+    "logo": "/org/parslinux/parslinux-gnome-greeter/assets/extensions/drive-menu-icon.png",
     "id": "drive-menu@gnome-shell-extensions.gcampax.github.com",
     "name": "Removable Drive Menu",
     "description": "Add a status menu for accessing and unmounting removable devices.",
-    "image": "/tr/org/pardus/pardus-gnome-greeter/assets/extensions/drive-menu-screenshot.png"
+    "image": "/org/parslinux/parslinux-gnome-greeter/assets/extensions/drive-menu-screenshot.png"
   },
   {
-    "logo": "/tr/org/pardus/pardus-gnome-greeter/assets/extensions/caffeine-icon.png",
+    "logo": "/org/parslinux/parslinux-gnome-greeter/assets/extensions/caffeine-icon.png",
     "id": "caffeine@patapon.info",
     "name": "Caffeine",
     "description": "Temporarily disable screensaver and auto-suspend.",
-    "image": "/tr/org/pardus/pardus-gnome-greeter/assets/extensions/caffeine-screenshot.png"
+    "image": "/org/parslinux/parslinux-gnome-greeter/assets/extensions/caffeine-screenshot.png"
   },
   {
-    "logo": "/tr/org/pardus/pardus-gnome-greeter/assets/extensions/annoyance-screenshot.png",
+    "logo": "/org/parslinux/parslinux-gnome-greeter/assets/extensions/annoyance-screenshot.png",
     "id": "noannoyance-fork@vrba.dev",
     "name": "NoAnnoyance v2",
     "description": "Block 'Application is ready' notifications.",
-    "image": "/tr/org/pardus/pardus-gnome-greeter/assets/extensions/annoyance-screenshot.png"
+    "image": "/org/parslinux/parslinux-gnome-greeter/assets/extensions/annoyance-screenshot.png"
   },
   {
-    "logo": "/tr/org/pardus/pardus-gnome-greeter/assets/extensions/clipboard-icon.png",
+    "logo": "/org/parslinux/parslinux-gnome-greeter/assets/extensions/clipboard-icon.png",
     "id": "clipboard-indicator@tudmotu.com",
     "name": "Clipboard Indicator",
     "description": "Adds clipboard indicator to top panel, caches history.",
-    "image": "/tr/org/pardus/pardus-gnome-greeter/assets/extensions/clipboard-screenshot.png"
+    "image": "/org/parslinux/parslinux-gnome-greeter/assets/extensions/clipboard-screenshot.png"
   },
   {
-    "logo": "/tr/org/pardus/pardus-gnome-greeter/assets/extensions/battery-icon.svg",
+    "logo": "/org/parslinux/parslinux-gnome-greeter/assets/extensions/battery-icon.svg",
     "id": "Bluetooth-Battery-Meter@maniacx.github.com",
     "name": "Bluetooth Battery Meter",
     "description": "View detailed Bluetooth device information.",
-    "image": "/tr/org/pardus/pardus-gnome-greeter/assets/extensions/battery-screenshot.png"
+    "image": "/org/parslinux/parslinux-gnome-greeter/assets/extensions/battery-screenshot.png"
   },
   {
-    "logo": "/tr/org/pardus/pardus-gnome-greeter/assets/extensions/system-monitor-logo.png",
+    "logo": "/org/parslinux/parslinux-gnome-greeter/assets/extensions/system-monitor-logo.png",
     "id": "system-monitor@gnome-shell-extensions.gcampax.github.com",
     "name": "System Monitor",
     "description": "Display system information in gnome shell status bar, such as memory usage, cpu usage, network rates...",
-    "image": "/tr/org/pardus/pardus-gnome-greeter/assets/extensions/system-monitor-screenshot.png"
+    "image": "/org/parslinux/parslinux-gnome-greeter/assets/extensions/system-monitor-screenshot.png"
   }
 ]

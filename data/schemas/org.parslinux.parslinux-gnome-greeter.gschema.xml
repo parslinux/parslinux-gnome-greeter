@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema id="tr.org.pardus.pardus-gnome-greeter" path="/tr/org/pardus/pardus-gnome-greeter/">
+  <schema id="org.parslinux.parslinux-gnome-greeter" path="/org/parslinux/parslinux-gnome-greeter/">
       <key name="layout-name" type="s">
           <default>"set_2"</default>
           <summary>GNOME Layout</summary>
-          <description>Pardus GNOME Layout</description>
+          <description>ParsLinux GNOME Layout</description>
       </key>
       <key name="first-run" type="b">
           <default>true</default>

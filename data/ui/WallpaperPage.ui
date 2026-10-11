@@ -6,13 +6,13 @@
     <property name="title" translatable="yes">Wallpaper</property>
     <property name="icon-name">image-x-generic-symbolic</property>
 
-    <!-- Pardus Live Wallpaper Button -->
+    <!-- ParsLinux Live Wallpaper Button -->
     <!--child>
       <object class="AdwPreferencesGroup">
         <child>
           <object class="AdwActionRow" id="live_wallpaper_row">
             <property name="icon-name">preferences-desktop-wallpaper-symbolic</property>
-            <property name="title" translatable="yes">Pardus Live Wallpaper</property>
+            <property name="title" translatable="yes">ParsLinux Live Wallpaper</property>
             <property name="subtitle" translatable="yes">Automatically download and rotate daily wallpapers</property>
             <property name="activatable">true</property>
             <child type="suffix">

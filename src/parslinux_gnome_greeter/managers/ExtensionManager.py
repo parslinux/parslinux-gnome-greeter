@@ -4,7 +4,7 @@ import dbus
 from gi.repository import Gio, GLib
 
 class ExtensionManager:
-    def __init__(self, extensions_file="/tr/org/pardus/pardus-gnome-greeter/json/extensions.json"):
+    def __init__(self, extensions_file="/org/parslinux/parslinux-gnome-greeter/json/extensions.json"):
         self.extensions_file = extensions_file
         self.extensions = self._load_extensions()
         self.dbus_service = None
@@ -30,8 +30,8 @@ class ExtensionManager:
         try:
             filename = os.path.basename(self.extensions_file)
             fallback_paths = [
-                f"/usr/share/pardus-gnome-greeter/json/{filename}",
-                f"/usr/local/share/pardus-gnome-greeter/json/{filename}",
+                f"/usr/share/parslinux-gnome-greeter/json/{filename}",
+                f"/usr/local/share/parslinux-gnome-greeter/json/{filename}",
             ]
             
             for fallback_path in fallback_paths:

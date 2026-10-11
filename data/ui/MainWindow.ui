@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="MainWindow" parent="AdwApplicationWindow">
-    <property name="title" translatable="yes">Pardus GNOME Greeter</property>
+    <property name="title" translatable="yes">ParsLinux GNOME Greeter</property>
     <property name="default-width">970</property>
     <property name="default-height">750</property>
     <child>

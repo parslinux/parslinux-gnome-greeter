@@ -5,8 +5,8 @@ from gi.repository import Gio
 
 class ShortcutManager:
     def __init__(self, 
-                 custom_shortcuts_path="/tr/org/pardus/pardus-gnome-greeter/json/custom_shortcuts.json",
-                 standard_shortcuts_path="/tr/org/pardus/pardus-gnome-greeter/json/shortcuts.json"):
+                 custom_shortcuts_path="/org/parslinux/parslinux-gnome-greeter/json/custom_shortcuts.json",
+                 standard_shortcuts_path="/org/parslinux/parslinux-gnome-greeter/json/shortcuts.json"):
         self.custom_shortcuts_path = custom_shortcuts_path
         self.standard_shortcuts_path = standard_shortcuts_path
         self.media_keys_schema_id = "org.gnome.settings-daemon.plugins.media-keys"
@@ -32,8 +32,8 @@ class ShortcutManager:
             filename = os.path.basename(path)
             # Try common installation paths
             fallback_paths = [
-                f"/usr/share/pardus-gnome-greeter/json/{filename}",
-                f"/usr/local/share/pardus-gnome-greeter/json/{filename}",
+                f"/usr/share/parslinux-gnome-greeter/json/{filename}",
+                f"/usr/local/share/parslinux-gnome-greeter/json/{filename}",
             ]
             
             for fallback_path in fallback_paths:

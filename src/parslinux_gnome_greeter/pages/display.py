@@ -8,7 +8,7 @@ gi.require_version("Adw", "1")
 from gi.repository import Gtk, Adw, Gio, GLib
 
 # Gettext setup
-domain = 'pardus-gnome-greeter'
+domain = 'parslinux-gnome-greeter'
 locale.bindtextdomain(domain, '/usr/share/locale')
 locale.textdomain(domain)
 from ..managers.DisplayManager import display_manager
@@ -22,7 +22,7 @@ DESKTOP_ICONS_KEY = "icon-size"
 NAUTILUS_SCHEMA = "org.gnome.nautilus.icon-view"
 NAUTILUS_KEY = "default-zoom-level"
 
-@Gtk.Template(resource_path='/tr/org/pardus/pardus-gnome-greeter/ui/DisplayPage.ui')
+@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/DisplayPage.ui')
 class DisplayPage(Adw.PreferencesPage):
     __gtype_name__ = 'DisplayPage'
     

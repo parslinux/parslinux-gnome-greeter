@@ -33,7 +33,7 @@ EXTENSION_TRANSLATIONS = {
 }
 
 # ExtensionCard template class
-@Gtk.Template(resource_path='/tr/org/pardus/pardus-gnome-greeter/ui/components/ExtensionCard.ui')
+@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/components/ExtensionCard.ui')
 class ExtensionCard(Gtk.Box):
     __gtype_name__ = 'ExtensionCard'
     
@@ -81,7 +81,7 @@ class ExtensionCard(Gtk.Box):
         if image_path and hasattr(self, 'image') and self.image:
             try:
                 # Check if it's a gresource path
-                if image_path.startswith('/tr/org/pardus/pardus-gnome-greeter/'):
+                if image_path.startswith('/org/parslinux/parslinux-gnome-greeter/'):
                     texture = Gdk.Texture.new_from_resource(image_path)
                     self.image.set_paintable(texture)
                 else:
@@ -129,7 +129,7 @@ class ExtensionCard(Gtk.Box):
             else:
                 self.extension_manager.disable_extension(self.extension_id)
 
-@Gtk.Template(resource_path='/tr/org/pardus/pardus-gnome-greeter/ui/ExtensionPage.ui')
+@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/ExtensionPage.ui')
 class ExtensionPage(Adw.PreferencesPage):
     __gtype_name__ = 'ExtensionPage'
     

@@ -7,7 +7,7 @@ from .ExtensionManager import ExtensionManager
 from .settings import app_settings, SettingsManager, shell_settings
 
 class LayoutManager:
-    def __init__(self, config_path="/tr/org/pardus/pardus-gnome-greeter/json/layout_config.json"):
+    def __init__(self, config_path="/org/parslinux/parslinux-gnome-greeter/json/layout_config.json"):
         self.config_path = config_path
         
         try:
@@ -59,7 +59,7 @@ class LayoutManager:
             enabled_set = set(enabled_extensions)
 
             # Check layouts in a specific order for priority
-            layout_priority = ['pardus', 'xp', '10', 'ubuntu', 'mac', 'gnome']
+            layout_priority = ['parslinux', 'xp', '10', 'ubuntu', 'mac', 'gnome']
 
             for layout_name in layout_priority:
                 layout_info = self.layouts.get(layout_name)
@@ -103,8 +103,8 @@ class LayoutManager:
         try:
             filename = os.path.basename(self.config_path)
             fallback_paths = [
-                f"/usr/share/pardus-gnome-greeter/json/{filename}",
-                f"/usr/local/share/pardus-gnome-greeter/json/{filename}",
+                f"/usr/share/parslinux-gnome-greeter/json/{filename}",
+                f"/usr/local/share/parslinux-gnome-greeter/json/{filename}",
             ]
             
             for fallback_path in fallback_paths:
@@ -322,7 +322,7 @@ class LayoutManager:
 # Example usage (for testing purposes)
 if __name__ == '__main__':
     # This assumes you run the script from the root of the project directory
-    # For example: python3 src/pardus_gnome_greeter/managers/GnomeLayoutManager.py
+    # For example: python3 src/parslinux_gnome_greeter/managers/GnomeLayoutManager.py
     try:
         # A simple argument parser to apply a layout from the command line
         import argparse
@@ -331,7 +331,7 @@ if __name__ == '__main__':
         parser.add_argument("-a", "--apply", metavar="LAYOUT", help="Apply the specified layout and exit.")
         args = parser.parse_args()
 
-        manager = LayoutManager(config_path="/tr/org/pardus/pardus-gnome-greeter/json/layout_config.json")
+        manager = LayoutManager(config_path="/org/parslinux/parslinux-gnome-greeter/json/layout_config.json")
         
         if args.apply:
             if args.apply in manager.layouts:
@@ -346,7 +346,7 @@ if __name__ == '__main__':
         # --- Default interactive test script ---
         print("\nAvailable layouts:", list(manager.layouts.keys()))
         
-        layouts_to_test = ['gnome', 'mac', 'ubuntu', '10', 'xp', 'pardus']
+        layouts_to_test = ['gnome', 'mac', 'ubuntu', '10', 'xp', 'parslinux']
         delay = 10  # seconds between each layout change
 
         for i, layout_name in enumerate(layouts_to_test):

@@ -22,7 +22,7 @@ xgettext -o data/po/py.pot -L Python $PY_FILES
 xgettext -o data/po/ui.pot -L Glade --keyword=_ --keyword=Name --keyword=Comment --keyword=Keywords $UI_FILES
 
 # Merge pot files
-msgcat --sort-output data/po/py.pot data/po/ui.pot > data/po/pardus-gnome-greeter.pot
+msgcat --sort-output data/po/py.pot data/po/ui.pot > data/po/parslinux-gnome-greeter.pot
 
 # Clean up temporary files
 rm data/po/py.pot data/po/ui.pot
@@ -30,9 +30,9 @@ rm data/po/py.pot data/po/ui.pot
 for lang in ${langs[@]}; do
 	if [[ -f data/po/$lang.po ]]; then
 		echo "Updating $lang.po"
-		msgmerge -U data/po/$lang.po data/po/pardus-gnome-greeter.pot
+		msgmerge -U data/po/$lang.po data/po/parslinux-gnome-greeter.pot
 	else
 		echo "Creating $lang.po"
-		cp data/po/pardus-gnome-greeter.pot data/po/$lang.po
+		cp data/po/parslinux-gnome-greeter.pot data/po/$lang.po
 	fi
 done 

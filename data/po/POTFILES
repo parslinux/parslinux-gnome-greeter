@@ -1,14 +1,14 @@
-src/pardus_gnome_greeter/pages/welcome.py
-src/pardus_gnome_greeter/pages/layout.py
-src/pardus_gnome_greeter/pages/theme.py
-src/pardus_gnome_greeter/pages/wallpaper.py
-src/pardus_gnome_greeter/pages/display.py
-src/pardus_gnome_greeter/pages/extension.py
-src/pardus_gnome_greeter/pages/applications.py
-src/pardus_gnome_greeter/pages/outro.py
-src/pardus_gnome_greeter/main_window.py
-src/pardus_gnome_greeter/components/AboutDialog.py
-src/pardus_gnome_greeter/__main__.py
+src/parslinux_gnome_greeter/pages/welcome.py
+src/parslinux_gnome_greeter/pages/layout.py
+src/parslinux_gnome_greeter/pages/theme.py
+src/parslinux_gnome_greeter/pages/wallpaper.py
+src/parslinux_gnome_greeter/pages/display.py
+src/parslinux_gnome_greeter/pages/extension.py
+src/parslinux_gnome_greeter/pages/applications.py
+src/parslinux_gnome_greeter/pages/outro.py
+src/parslinux_gnome_greeter/main_window.py
+src/parslinux_gnome_greeter/components/AboutDialog.py
+src/parslinux_gnome_greeter/__main__.py
 data/ui/ApplicationsPage.ui
 data/ui/ExtensionPage.ui
 data/ui/WelcomePage.ui
@@ -18,7 +18,7 @@ data/ui/WallpaperPage.ui
 data/ui/DisplayPage.ui
 data/ui/OutroPage.ui
 data/ui/TimePage.ui
-tr.org.pardus.pardus-gnome-greeter.desktop.in
+org.parslinux.parslinux-gnome-greeter.desktop.in
 data/ui/components/ExtensionCard.ui
 data/ui/components/WallpaperThumbnail.ui
 

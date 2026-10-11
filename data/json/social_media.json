@@ -1,15 +1,15 @@
 [
     {
         "img": "github.svg",
-        "url": "https://github.com/pardus"
+        "url": "https://github.com/parslinux"
     },
     {
         "img": "linkedin.svg",
-        "url": "https://www.linkedin.com/company/pardus"
+        "url": "https://www.linkedin.com/company/parslinux"
     },
     {
         "img": "icons/x-symbolic.svg",
-        "url": "https://x.com/PardusKurumsal"
+        "url": "https://x.com/ParsLinuxKurumsal"
     },
     {
         "img": "youtube.svg",
@@ -17,6 +17,6 @@
     },
     {
         "img": "facebook.svg",
-        "url": "https://www.facebook.com/PardusKurumsal"
+        "url": "https://www.facebook.com/ParsLinuxKurumsal"
     }
 ]

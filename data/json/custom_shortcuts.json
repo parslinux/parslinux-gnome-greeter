@@ -1,20 +1,20 @@
 [
     {
-        "id": "pardus-terminal-launcher",
-        "name": "Pardus Terminal Launcher",
+        "id": "parslinux-terminal-launcher",
+        "name": "ParsLinux Terminal Launcher",
         "binding": "<Primary><Alt>t",
         "command": "x-terminal-emulator"
     },
     {
-        "id": "pardus-software-launcher",
-        "name": "Pardus Software Launcher",
+        "id": "parslinux-software-launcher",
+        "name": "ParsLinux Software Launcher",
         "binding": "<Primary><Alt>s",
-        "command": "pardus-software"
+        "command": "parslinux-software"
     },
     {
-        "id": "pardus-shortcuts-launcher",
-        "name": "Pardus Shortcuts Launcher",
+        "id": "parslinux-shortcuts-launcher",
+        "name": "ParsLinux Shortcuts Launcher",
         "binding": "<Primary><Alt>k",
-        "command": "pardus-shortcuts"
+        "command": "parslinux-shortcuts"
     }
 ]

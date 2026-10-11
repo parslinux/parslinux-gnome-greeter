@@ -27,4 +27,4 @@ pip-delete-this-directory.txt
 /debian/.debhelper
 /debian/debhelper-build-stamp
 /debian/*.substvars
-/debian/pardus-gnome-greeter/
+/debian/parslinux-gnome-greeter/
