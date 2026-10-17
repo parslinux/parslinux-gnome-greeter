@@ -55,3 +55,4 @@ Tüm rehberler [`docs/`](docs/README.md) klasöründedir:
 - [Katkı Kuralları (CONTRIBUTING.md)](docs/CONTRIBUTING.md)
 - [Sürümleme (VERSION.md)](docs/VERSION.md) · [Değişiklikler (CHANGELOG.md)](docs/CHANGELOG.md)
 - [Veri Kaydetme](docs/DATA_SAVING_GUIDE.md) · [Self-Hosting](docs/SELF_HOSTING_GUIDE.md) · [Ödeme Entegrasyonu](docs/PAYMENT_INTEGRATION.md) · [Uygulama Bağlama](docs/UYGULAMA_BAGLAMA.md)
+# parslinux-gnome-greeter
