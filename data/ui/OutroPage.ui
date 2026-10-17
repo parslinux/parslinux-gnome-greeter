@@ -8,7 +8,9 @@
     <property name="icon-name">application-exit-symbolic</property>
     
     <child>
-      <object class="GtkBox">
+      <object class="AdwPreferencesGroup">
+        <child>
+          <object class="GtkBox">
         <property name="orientation">vertical</property>
         <property name="spacing">10</property>
         <property name="margin-bottom">20</property>
@@ -216,6 +218,8 @@
             
           </object>
         </child>
+      </object>
+    </child>
       </object>
     </child>
   </template>

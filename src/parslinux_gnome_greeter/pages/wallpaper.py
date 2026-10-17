@@ -72,7 +72,6 @@ class WallpaperPage(Adw.PreferencesPage):
     __gtype_name__ = 'WallpaperPage'
     
     # Template children
-    live_wallpaper_row = Gtk.Template.Child("live_wallpaper_row")
     wallpapers_flowbox = Gtk.Template.Child("wallpapers_flowbox")
 
     def __init__(self, **kwargs):
@@ -86,8 +85,6 @@ class WallpaperPage(Adw.PreferencesPage):
         self._is_destroyed = False
         
         # Connect signals
-        if self.live_wallpaper_row:
-            self.live_wallpaper_row.connect("activated", self.on_live_wallpaper_clicked)
         if self.wallpapers_flowbox:
             self.wallpapers_flowbox.connect("child-activated", self.on_wallpaper_selected)
         

@@ -3,25 +3,5 @@
   <template class="DisplayPage" parent="AdwPreferencesPage">
     <property name="title" translatable="yes">Display</property>
     <property name="icon-name">video-display-symbolic</property>
-    <child>
-      <object class="GtkScrolledWindow">
-        <property name="hscrollbar-policy">never</property>
-        <property name="vscrollbar-policy">automatic</property>
-        <child>
-          <object class="AdwClamp">
-            <property name="maximum-size">800</property>
-            <property name="tightening-threshold">600</property>
-            <property name="margin-top">0</property>
-            <child>
-              <object class="GtkBox">
-                <property name="orientation">vertical</property>
-                <property name="margin-start">24</property>
-                <property name="margin-end">24</property>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
   </template>
 </interface> 
