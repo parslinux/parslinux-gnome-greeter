@@ -1,17 +1,13 @@
-from ..appinfo import resource_path as _rp
-import locale
+from gettext import gettext as _
+
 import gi
-from locale import gettext as _
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Gtk, Adw, Gio, GLib
+from gi.repository import Adw, Gtk
 
-# Gettext setup
-domain = 'parslinux-gnome-greeter'
-locale.bindtextdomain(domain, '/usr/share/locale')
-locale.textdomain(domain)
+from ..appinfo import resource_path as _rp
 from ..managers.display_manager import display_manager
 from ..managers.settings import SettingsManager
 

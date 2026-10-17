@@ -1,9 +1,11 @@
-import os
 import glob
+import os
+
 import gi
+
 gi.require_version('GdkPixbuf', '2.0')
-from gi.repository import GdkPixbuf, GLib
-from pathlib import Path
+from gi.repository import GdkPixbuf
+
 from .settings import background_settings, theme_settings
 
 class WallpaperManager:

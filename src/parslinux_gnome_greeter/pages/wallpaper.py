@@ -1,20 +1,17 @@
-from ..appinfo import resource_path as _rp
-import locale
-from locale import gettext as _
-import gi
-import threading
 from concurrent.futures import ThreadPoolExecutor
-import subprocess
+from gettext import gettext as _
 import os
-import sys
+import subprocess
+import threading
+
+import gi
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Gtk, Adw, GLib, GdkPixbuf, Gdk
+from gi.repository import Adw, Gdk, GLib, Gtk
 
-# Add the managers directory to the path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'managers'))
+from ..appinfo import resource_path as _rp
 from ..managers.wallpaper_manager import WallpaperManager
 
 # WallpaperThumbnail template class

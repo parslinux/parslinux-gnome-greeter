@@ -1,18 +1,12 @@
-from ..appinfo import resource_path as _rp
-import locale
 import gi
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Gtk, Adw, GLib, Gio
-import os
-import sys
+from gi.repository import Adw, Gio, GLib, Gtk
 
-# Add the managers directory to the path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'managers'))
+from ..appinfo import resource_path as _rp
 from ..managers.extension_manager import ExtensionManager
-from ..managers.theme_manager import ThemeManager
 
 @Gtk.Template(resource_path=_rp('ui', 'TimePage.ui'))
 class TimePage(Adw.PreferencesPage):

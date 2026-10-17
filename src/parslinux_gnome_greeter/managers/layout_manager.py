@@ -1,11 +1,11 @@
-from ..appinfo import resource_path as _rp
 import json
 import os
+
 from gi.repository import Gio, GLib
 
-# Import ExtensionManager
+from ..appinfo import resource_path as _rp
 from .extension_manager import ExtensionManager
-from .settings import app_settings, SettingsManager, shell_settings
+from .settings import SettingsManager, app_settings, shell_settings
 
 class LayoutManager:
     def __init__(self, config_path=_rp('json', 'layout_config.json')):

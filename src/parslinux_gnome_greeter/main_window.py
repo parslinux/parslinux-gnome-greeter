@@ -1,15 +1,16 @@
-from .appinfo import resource_path as _rp
-import locale
+from gettext import gettext as _
+
 import gi
-from locale import gettext as _
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Gtk, Adw, Gio, GLib
+from gi.repository import Adw, Gtk
 
-from .page_registry import get_pages, PageEntry
+from .appinfo import resource_path as _rp
 from .components.about_dialog import create_about_dialog
+from .page_registry import get_pages
+
 
 @Gtk.Template(resource_path=_rp('ui', 'MainWindow.ui'))
 class MainWindow(Adw.ApplicationWindow):

@@ -1,20 +1,16 @@
-from ..appinfo import RESOURCE_PREFIX as _RP
-from ..appinfo import resource_path as _rp
-import locale
-from locale import gettext as _
-import gi
 import os
-import sys
+from gettext import gettext as _
+
+import gi
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Gtk, Adw, GLib, Gdk, Gio
+from gi.repository import Adw, Gdk, Gio, GLib, Gtk
 
-# Add the managers directory to the path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'managers'))
+from ..appinfo import RESOURCE_PREFIX as _RP
+from ..appinfo import resource_path as _rp
 from ..managers.extension_manager import ExtensionManager
-from ..managers.theme_manager import ThemeManager
 
 # This dictionary is used to mark strings for translation AND for runtime lookup
 EXTENSION_TRANSLATIONS = {

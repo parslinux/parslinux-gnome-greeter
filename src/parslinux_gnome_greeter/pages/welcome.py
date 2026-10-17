@@ -1,11 +1,13 @@
-from ..appinfo import resource_path as _rp
-from locale import gettext as _
+from gettext import gettext as _
+
 import gi
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Gtk, Adw, GObject
+from gi.repository import Adw, GObject, Gtk
+
+from ..appinfo import resource_path as _rp
 
 @Gtk.Template(resource_path=_rp('ui', 'WelcomePage.ui'))
 class WelcomePage(Adw.PreferencesPage):

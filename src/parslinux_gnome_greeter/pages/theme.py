@@ -1,18 +1,13 @@
-from ..appinfo import resource_path as _rp
-import locale
+from gettext import gettext as _
+
 import gi
-from locale import gettext as _
-import json
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Gtk, Adw, GLib, Gio
-import os
-import sys
+from gi.repository import Adw, GLib, Gtk
 
-# Add the managers directory to the path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'managers'))
+from ..appinfo import resource_path as _rp
 from ..managers.theme_manager import ThemeManager
 
 @Gtk.Template(resource_path=_rp('ui', 'ThemePage.ui'))

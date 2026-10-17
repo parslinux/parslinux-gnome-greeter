@@ -9,10 +9,9 @@ registry modülü, GTK olmadan da (testlerde) güvenle import edilebilir.
 """
 
 from dataclasses import dataclass
+from gettext import gettext as _
 from importlib import import_module
-from typing import Callable, List
-
-from locale import gettext as _
+from typing import List
 
 
 @dataclass(frozen=True)

@@ -1,8 +1,10 @@
-from ..appinfo import resource_path as _rp
 import json
-import re
 import os
+import re
+
 from gi.repository import Gio
+
+from ..appinfo import resource_path as _rp
 from .settings import SettingsManager
 
 class ShortcutManager:

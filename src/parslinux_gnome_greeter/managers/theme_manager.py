@@ -1,5 +1,4 @@
-import os
-from .settings import theme_settings, shell_settings, app_settings
+from .settings import app_settings, theme_settings
 
 class ThemeManager:
     def __init__(self):

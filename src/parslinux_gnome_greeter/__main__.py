@@ -1,19 +1,25 @@
 #!/usr/bin/env python3
-from .appinfo import APP_ID
-import sys
 import os
-import gi
+import sys
+
+# Support running directly (e.g. python3 src/parslinux_gnome_greeter/__main__.py)
+if __package__ is None or __package__ == "":
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+    from parslinux_gnome_greeter.appinfo import APP_ID
+    from parslinux_gnome_greeter.translation import init_translation
+else:
+    from .appinfo import APP_ID
+    from .translation import init_translation
 
 # Gettext setup - must be done before any other imports
-from .translation import init_translation
 init_translation()
 
-# Enable translation support for UI files
-Gtk = None  # Will be imported later
+import gi
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
-from gi.repository import Gio, GLib, Gtk, Adw
+
+from gi.repository import Adw, Gio, GLib
 
 def load_gresource():
     """Loads the GResource file from dev build, XDG_DATA_DIRS, or system prefixes."""
@@ -60,9 +66,14 @@ def load_gresource():
 load_gresource()
 
 # Import UI classes after GResource is loaded
-from .main_window import MainWindow
-from .managers.settings import app_settings
-from .managers.shortcut_manager import ShortcutManager
+if __package__ is None or __package__ == "":
+    from parslinux_gnome_greeter.main_window import MainWindow
+    from parslinux_gnome_greeter.managers.settings import app_settings
+    from parslinux_gnome_greeter.managers.shortcut_manager import ShortcutManager
+else:
+    from .main_window import MainWindow
+    from .managers.settings import app_settings
+    from .managers.shortcut_manager import ShortcutManager
 
 class ParsLinuxGreeterApplication(Adw.Application):
     """The main application."""

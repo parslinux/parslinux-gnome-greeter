@@ -1,14 +1,11 @@
-from ..appinfo import resource_path as _rp
 import gi
-import os
-import threading
-import time
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Gtk, Adw, GLib, Gio, GdkPixbuf, Gdk, GObject
+from gi.repository import Adw, Gdk, GdkPixbuf, Gio, GLib, GObject, Gtk
 
+from ..appinfo import resource_path as _rp
 from ..managers.layout_manager import LayoutManager
 
 
