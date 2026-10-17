@@ -1,3 +1,4 @@
+from ..appinfo import resource_path as _rp
 import locale
 import gi
 from locale import gettext as _
@@ -12,9 +13,9 @@ import sys
 
 # Add the managers directory to the path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'managers'))
-from ..managers.ThemeManager import ThemeManager
+from ..managers.theme_manager import ThemeManager
 
-@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/ThemePage.ui')
+@Gtk.Template(resource_path=_rp('ui', 'ThemePage.ui'))
 class ThemePage(Adw.PreferencesPage):
     __gtype_name__ = 'ThemePage'
     
@@ -94,7 +95,7 @@ class ThemePage(Adw.PreferencesPage):
                 box.set_halign(Gtk.Align.CENTER)
                 box.set_valign(Gtk.Align.CENTER)
 
-                img_resource_path = f"/org/parslinux/parslinux-gnome-greeter/assets/icon-themes/{icon}"
+                img_resource_path = _rp('assets', 'icon-themes', icon)
                 img = Gtk.Image.new_from_resource(img_resource_path)
                 img.set_pixel_size(48)
                 
@@ -153,15 +154,16 @@ class ThemePage(Adw.PreferencesPage):
     def setup_accent_colors(self):
         """Setup accent color selection"""
         colors = [
-            ("blue", "#3584e4"),
-            ("teal", "#2ec27e"), 
-            ("green", "#33d17a"),
+            ("blue",   "#3584e4"),
+            ("teal",   "#2ec27e"),
+            ("green",  "#33d17a"),
             ("yellow", "#f6d32d"),
             ("orange", "#ff7800"),
-            ("red", "#e01b24"),
-            ("pink", "#c061cb"),
+            ("red",    "#e01b24"),
+            ("pink",   "#c061cb"),
             ("purple", "#9141ac"),
-            ("slate", "#6c758f"),
+            ("slate",  "#6c758f"),
+            ("navy",   "#1a2940"),  # Deep navy — app-specific, maps to blue in GNOME
         ]
         
         self.accent_color_buttons = {}

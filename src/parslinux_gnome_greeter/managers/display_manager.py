@@ -58,6 +58,13 @@ class DisplayManager:
                         print(f"DEBUG: Matched CRTC {crtc_id} with mode: {mode}")
                         break
 
+            # Fetch current state once for monitor scale/mode details
+            current_state = None
+            try:
+                current_state = proxy.GetCurrentState()
+            except Exception as e:
+                print(f"DEBUG: Could not fetch GetCurrentState via proxy: {e}")
+
             for i, output in enumerate(outputs):
                 if len(output) < 8: continue
                 
@@ -190,18 +197,12 @@ class DisplayManager:
                 
                 # Try to get actual scale information from GetCurrentState
                 try:
-                    # Import here to avoid circular import
-                    import dbus
-                    bus = dbus.SessionBus()
-                    display_config_proxy = bus.get_object("org.gnome.Mutter.DisplayConfig", "/org/gnome/Mutter/DisplayConfig")
-                    display_config_interface = dbus.Interface(display_config_proxy, dbus_interface="org.gnome.Mutter.DisplayConfig")
-                    
-                    # Get current state for scale information
-                    serial, physical_monitors, logical_monitors, properties = display_config_interface.GetCurrentState()
-                    
-                    # Find our monitor in the current state by connector name
-                    for monitor_info_current, monitor_modes_current, monitor_properties_current in physical_monitors:
-                        connector_name = str(monitor_info_current[0])
+                    if current_state is not None:
+                        serial, physical_monitors, logical_monitors, properties = current_state
+                        
+                        # Find our monitor in the current state by connector name
+                        for monitor_info_current, monitor_modes_current, monitor_properties_current in physical_monitors:
+                            connector_name = str(monitor_info_current[0])
                         if connector_name == output_name:
                             # Get the active mode ID for this monitor
                             active_mode_id = active_mode_ids.get(current_crtc_id, 0)

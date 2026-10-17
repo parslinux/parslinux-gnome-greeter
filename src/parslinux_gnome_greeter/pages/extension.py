@@ -1,4 +1,7 @@
+from ..appinfo import RESOURCE_PREFIX as _RP
+from ..appinfo import resource_path as _rp
 import locale
+from locale import gettext as _
 import gi
 import os
 import sys
@@ -10,8 +13,8 @@ from gi.repository import Gtk, Adw, GLib, Gdk, Gio
 
 # Add the managers directory to the path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'managers'))
-from ..managers.ExtensionManager import ExtensionManager
-from ..managers.ThemeManager import ThemeManager
+from ..managers.extension_manager import ExtensionManager
+from ..managers.theme_manager import ThemeManager
 
 # This dictionary is used to mark strings for translation AND for runtime lookup
 EXTENSION_TRANSLATIONS = {
@@ -33,7 +36,7 @@ EXTENSION_TRANSLATIONS = {
 }
 
 # ExtensionCard template class
-@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/components/ExtensionCard.ui')
+@Gtk.Template(resource_path=_rp('ui', 'components', 'ExtensionCard.ui'))
 class ExtensionCard(Gtk.Box):
     __gtype_name__ = 'ExtensionCard'
     
@@ -81,7 +84,7 @@ class ExtensionCard(Gtk.Box):
         if image_path and hasattr(self, 'image') and self.image:
             try:
                 # Check if it's a gresource path
-                if image_path.startswith('/org/parslinux/parslinux-gnome-greeter/'):
+                if image_path.startswith(_RP):
                     texture = Gdk.Texture.new_from_resource(image_path)
                     self.image.set_paintable(texture)
                 else:
@@ -129,7 +132,7 @@ class ExtensionCard(Gtk.Box):
             else:
                 self.extension_manager.disable_extension(self.extension_id)
 
-@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/ExtensionPage.ui')
+@Gtk.Template(resource_path=_rp('ui', 'ExtensionPage.ui'))
 class ExtensionPage(Adw.PreferencesPage):
     __gtype_name__ = 'ExtensionPage'
     

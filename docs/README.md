@@ -17,6 +17,7 @@ rehberler bu klasörde toplanmıştır.
 | [SELF_HOSTING_GUIDE.md](SELF_HOSTING_GUIDE.md) | Kendi içerik sunucunu barındırma, air-gapped dağıtım |
 | [PAYMENT_INTEGRATION.md](PAYMENT_INTEGRATION.md) | Bağış/ödeme entegrasyonu noktaları ve GPL uyumu |
 | [UYGULAMA_BAGLAMA.md](UYGULAMA_BAGLAMA.md) | Dağıtıma entegrasyon: autostart, gschema, paket zinciri |
+| [TERMS.md](TERMS.md) / [SARTLAR.md](SARTLAR.md) | Sistem/donanım şartları, kullanım koşulları, lisans (GPL-3.0), dağıtım, marka ve garanti şartları |
 | [progress.md](progress.md) | Proje ilerleme durumu (güncel iş kaydı) |
 
 ## Kök dizinde kalanlar

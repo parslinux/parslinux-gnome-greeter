@@ -8,8 +8,8 @@ proje [Sürümleme](VERSION.md) kurallarına uyar.
 ## [Yayınlanmamış]
 
 ### Eklendi
-- pytest tabanlı test altyapısı (`tests/`): SettingsManager, LayoutManager ve
-  veri dosyası bütünlük testleri (29 test, gi/pydbus stub'larıyla başlessız çalışır)
+- pytest tabanlı test altyapısı (`tests/`): SettingsManager, LayoutManager,
+  veri dosyası bütünlüğü, appinfo, sayfa kaydı ve arayüz testleri (34 test, gi/pydbus stub'larıyla başlessız çalışır)
 - Arch Linux desteği: `run.sh`, `install.sh`, `uninstall.sh` betikleri ve `PKGBUILD`;
   `meson.build`de site-packages hedefinin otomatik tespiti
 - Dokümantasyon: `docs/` klasörü altında `INSTALL.md`, `ARCHITECTURE.md`,
@@ -18,6 +18,8 @@ proje [Sürümleme](VERSION.md) kurallarına uyar.
   ve kök dizinde AI asistan dosyaları (`CLAUDE.md`, `.claudeignore`)
 
 ### Değiştirildi
+- Modüller PEP 8 (`snake_case`) adlandırmasına taşındı (`managers/` ve `components/`),
+  eski `CamelCase.py` modülleri geriye dönük uyumluluk katmanı (shim) olarak korundu
 - Tüm dokümantasyon `.md` dosyaları kök dizinden `docs/` klasörüne taşındı
   (README.md ve CLAUDE.md kökte kaldı)
 - Marka temizliği: tüm "Pardus" referansları "ParsLinux" ile değiştirildi

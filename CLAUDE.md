@@ -43,11 +43,11 @@ python -m pytest
 
 ## Kurallar
 
-1. **Testleri bozma:** `python -m pytest` her değişiklikten sonra geçmeli (29 test).
+1. **Testleri bozma:** `python -m pytest` her değişiklikten sonra geçmeli (34 test).
 2. **GSettings anahtarları:** Şemayı (`data/schemas/*.gschema.xml`) değiştirdiysen hem `SettingsManager` kullanımını hem testleri güncelle.
 3. **UI değişiklikleri:** `.ui` dosyaları ile Python kodu senkron olmalı; `gresource.xml` listesini güncellemeyi unutma.
 4. **Çeviri:** Yeni kullanıcıya dönük string eklersen `data/po/*.po` ve `.pot` dosyalarını da güncelle (`./update-translations.sh`).
-5. **Dosya isimleri:** Mevcut `CamelCase` manager dosyaları geçmişten geliyor; yeni dosyalarda PEP8 (`snake_case`) kullan.
+5. **Dosya isimleri:** Modüller PEP 8 (`snake_case`) kullanır; `CamelCase.py` dosyaları geriye dönük uyumluluk shim'idir.
 6. **Commit mesajları:** Ne değiştiğini net anlatan kısa İngilizce veya Türkçe mesajlar yaz.
 7. **Lisans:** GPL-3.0; dosyaların başındaki lisans başlıklarını koru.
 

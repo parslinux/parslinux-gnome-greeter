@@ -1,3 +1,4 @@
+from .appinfo import resource_path as _rp
 import locale
 import gi
 from locale import gettext as _
@@ -7,18 +8,10 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Gtk, Adw, Gio, GLib
 
-from .pages.welcome import WelcomePage
-from .pages.layout import LayoutPage
-from .pages.theme import ThemePage
-from .pages.wallpaper import WallpaperPage
-from .pages.display import DisplayPage
-from .pages.extension import ExtensionPage
-from .pages.applications import ApplicationsPage
-from .pages.time import TimePage
-from .pages.outro import OutroPage
-from .components.AboutDialog import create_about_dialog
+from .page_registry import get_pages, PageEntry
+from .components.about_dialog import create_about_dialog
 
-@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/MainWindow.ui')
+@Gtk.Template(resource_path=_rp('ui', 'MainWindow.ui'))
 class MainWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'MainWindow'
 
@@ -32,7 +25,7 @@ class MainWindow(Adw.ApplicationWindow):
 
         # Load custom CSS
         css_provider = Gtk.CssProvider()
-        css_provider.load_from_resource('/org/parslinux/parslinux-gnome-greeter/css/style.css')
+        css_provider.load_from_resource(_rp('css', 'style.css'))
         Gtk.StyleContext.add_provider_for_display(
             self.get_display(),
             css_provider,
@@ -108,21 +101,36 @@ class MainWindow(Adw.ApplicationWindow):
         content_box.set_hexpand(True)
         self.view_stack.set_hexpand(True)
         
+        # Registry and page cache for lazy loading
+        self._pages_by_name = {entry.name: entry for entry in get_pages()}
+        self._page_instances = {}
+
         self.load_pages()
         self.pages_listbox.connect('row-activated', self._on_row_activated)
         self.split_view.connect('notify::collapsed', self._on_split_view_collapsed)
 
-        # Set start page if provided
+        # Set start page if provided, only instantiate that page initially
+        initial_name = "welcome"
         if start_page:
             for row in self.pages_listbox:
                 if row.get_name() == start_page:
+                    initial_name = start_page
                     self.pages_listbox.select_row(row)
-                    self.view_stack.set_visible_child_name(row.get_name())
                     break
-            else: # If loop finishes without break
-                self.pages_listbox.select_row(self.pages_listbox.get_row_at_index(0))
+            else:
+                first_row = self.pages_listbox.get_row_at_index(0)
+                if first_row:
+                    self.pages_listbox.select_row(first_row)
+                    initial_name = first_row.get_name()
         else:
-            self.pages_listbox.select_row(self.pages_listbox.get_row_at_index(0))
+            first_row = self.pages_listbox.get_row_at_index(0)
+            if first_row:
+                self.pages_listbox.select_row(first_row)
+                initial_name = first_row.get_name()
+
+        # Load only initial page
+        self._ensure_page(initial_name)
+        self.view_stack.set_visible_child_name(initial_name)
 
         self._on_split_view_collapsed(self.split_view, None)
         
@@ -251,8 +259,27 @@ class MainWindow(Adw.ApplicationWindow):
         is_collapsed = self.split_view.get_collapsed()
         self.menu_button.set_visible(is_collapsed)
 
+    def _ensure_page(self, name):
+        """Lazily instantiate and add a page to ViewStack if not already created."""
+        if name in self._page_instances:
+            return self._page_instances[name]
+
+        entry = self._pages_by_name.get(name)
+        if not entry:
+            return None
+
+        cls = entry.load_class()
+        page = cls()
+        if name == "welcome" and hasattr(page, "connect"):
+            page.connect("navigate-to", self._on_navigate_request)
+
+        self.view_stack.add_named(page, name)
+        self._page_instances[name] = page
+        return page
+
     def _on_row_activated(self, listbox, row):
         name = row.get_name()
+        self._ensure_page(name)
         self.view_stack.set_visible_child_name(name)
         # Update the title
         list_box_row_child = row.get_child()
@@ -267,38 +294,20 @@ class MainWindow(Adw.ApplicationWindow):
             
         self._update_navigation_buttons()
 
-
-    
     def load_pages(self):
-        # Create and add pages to the ViewStack
-        pages = [
-            {"name": "welcome", "title": _("Welcome"), "icon": "go-home-symbolic", "class": WelcomePage},
-            {"name": "layout", "title": _("Layout"), "icon": "view-paged-symbolic", "class": LayoutPage},
-            {"name": "theme", "title": _("Theme"), "icon": "applications-graphics-symbolic", "class": ThemePage},
-            {"name": "wallpaper", "title": _("Wallpaper"), "icon": "image-x-generic-symbolic", "class": WallpaperPage},
-            {"name": "display", "title": _("Display"), "icon": "video-display-symbolic", "class": DisplayPage},
-            {"name": "extension", "title": _("Extensions"), "icon": "org.gnome.Shell.Extensions-symbolic", "class": ExtensionPage},
-            {"name": "applications", "title": _("Applications"), "icon": "view-app-grid-symbolic", "class": ApplicationsPage},
-            {"name": "time", "title": _("Time"), "icon": "org.gnome.Settings-time-symbolic", "class": TimePage},
-            {"name": "outro", "title": _("Finish"), "icon": "application-exit-symbolic", "class": OutroPage},
-        ]
-
-        for page_info in pages:
-            page = page_info["class"]()
-            if page_info["name"] == "welcome":
-                page.connect("navigate-to", self._on_navigate_request)
-            self.view_stack.add_named(page, page_info["name"])
-
-            row = Gtk.ListBoxRow(name=page_info["name"])
-            row.icon_name = page_info["icon"]
+        """Build sidebar navigation for all registered pages without instantiating them yet."""
+        for entry in get_pages():
+            row = Gtk.ListBoxRow(name=entry.name)
+            row.icon_name = entry.icon
             
             box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
             box.set_margin_start(12)
             box.set_margin_end(12)
             
-            icon = Gtk.Image.new_from_icon_name(page_info["icon"])
+            icon = Gtk.Image.new_from_icon_name(entry.icon)
             icon.set_pixel_size(16)
-            label = Gtk.Label.new(page_info["title"])
+            title = entry.title() if callable(entry.title) else entry.title
+            label = Gtk.Label.new(title)
             label.set_xalign(0)
 
             box.append(icon)
@@ -307,4 +316,6 @@ class MainWindow(Adw.ApplicationWindow):
             row.set_child(box)
             self.pages_listbox.append(row)
         
-        self.pages_listbox.select_row(self.pages_listbox.get_row_at_index(0)) 
+        first_row = self.pages_listbox.get_row_at_index(0)
+        if first_row:
+            self.pages_listbox.select_row(first_row) 

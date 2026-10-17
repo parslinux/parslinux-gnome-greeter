@@ -7,8 +7,12 @@ için çalışan sahte (mock) nesneler enjekte edilir. Böylece saf Python
 mantığı (SettingsManager vb.) izole şekilde test edilebilir.
 """
 
+import builtins
 import sys
 import types
+
+if not hasattr(builtins, "_"):
+    builtins._ = lambda s: s
 
 
 class _AnyAttr:
@@ -18,10 +22,18 @@ class _AnyAttr:
         return _AnyAttr()
 
     def __call__(self, *args, **kwargs):
+        if args and isinstance(args[0], type):
+            return args[0]
         return _AnyAttr()
 
     def __iter__(self):
         return iter(())
+
+    def __mro_entries__(self, bases):
+        return (type(f"_StubBase_{id(self)}", (), {
+            "connect": lambda *a, **kw: None,
+            "emit": lambda *a, **kw: None,
+        }),)
 
 
 def _ensure_gi_stubs():
@@ -53,7 +65,7 @@ def _ensure_gi_stubs():
             _real_gio.Settings = _FakeSettings
         else:
             repo = types.ModuleType("gi.repository")
-            for name in ("Gtk", "Adw", "Gio", "GLib", "Pango", "Gdk", "GdkPixbuf"):
+            for name in ("Gtk", "Adw", "Gio", "GLib", "Pango", "Gdk", "GdkPixbuf", "GObject"):
                 setattr(repo, name, _AnyAttr())
             sys.modules["gi.repository"] = repo
             return True

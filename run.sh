@@ -15,17 +15,18 @@ GRESOURCE_XML="${APP_NAME}.gresource.xml"
 REBUILD_RESOURCE=false
 USE_MESON=false
 
+APP_ARGS=()
 for arg in "$@"; do
     case "$arg" in
         --build) REBUILD_RESOURCE=true ;;
         --meson) USE_MESON=true ;;
         -h|--help)
-            echo "Kullanım: $0 [--build] [--meson]"
+            echo "Kullanım: $0 [--build] [--meson] [uygulama_parametreleri...]"
             echo "  --build : GResource dosyasını yeniden derle"
             echo "  --meson : Meson ile tam kurulumdan sonra build dizininden çalıştır"
             exit 0
             ;;
-        *) echo "Bilinmeyen seçenek: $arg"; exit 1 ;;
+        *) APP_ARGS+=("$arg") ;;
     esac
 done
 
@@ -97,5 +98,8 @@ if $REBUILD_RESOURCE || [[ ! -f "$RES_TARGET" ]]; then
 fi
 
 echo "==> Çalıştırılıyor (dev modu): $APP_NAME"
+# ~/.local/share'i XDG_DATA_DIRS'a ekle — kullanıcı dizinine kurulan gschema
+# değişikliklerinin (ör. custom-accent-color) gsettings tarafından görülmesi için.
+XDG_DATA_DIRS="${HOME}/.local/share${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}" \
 PYTHONPATH="$PROJECT_ROOT/src${PYTHONPATH:+:$PYTHONPATH}" \
-    exec python3 -m parslinux_gnome_greeter "$@"
+    exec python3 -m parslinux_gnome_greeter ${APP_ARGS[@]+"${APP_ARGS[@]}"}

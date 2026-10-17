@@ -11,5 +11,10 @@
           <summary>First Run</summary>
           <description>Did application run before or is this first run?</description>
       </key>
+      <key name="custom-accent-color" type="s">
+          <default>""</default>
+          <summary>Custom Accent Color</summary>
+          <description>App-specific accent color name (e.g. navy) that may not be in GNOME enum. Empty string means use GNOME default.</description>
+      </key>
   </schema>
 </schemalist> 

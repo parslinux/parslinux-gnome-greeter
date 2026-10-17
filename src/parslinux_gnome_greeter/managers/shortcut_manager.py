@@ -1,18 +1,20 @@
+from ..appinfo import resource_path as _rp
 import json
 import re
 import os
 from gi.repository import Gio
+from .settings import SettingsManager
 
 class ShortcutManager:
     def __init__(self, 
-                 custom_shortcuts_path="/org/parslinux/parslinux-gnome-greeter/json/custom_shortcuts.json",
-                 standard_shortcuts_path="/org/parslinux/parslinux-gnome-greeter/json/shortcuts.json"):
+                 custom_shortcuts_path=_rp('json', 'custom_shortcuts.json'),
+                 standard_shortcuts_path=_rp('json', 'shortcuts.json')):
         self.custom_shortcuts_path = custom_shortcuts_path
         self.standard_shortcuts_path = standard_shortcuts_path
         self.media_keys_schema_id = "org.gnome.settings-daemon.plugins.media-keys"
         self.custom_binding_schema_id = "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding"
         self.custom_bindings_key = "custom-keybindings"
-        self.media_keys_settings = Gio.Settings.new(self.media_keys_schema_id)
+        self.media_keys_settings = SettingsManager(self.media_keys_schema_id)
 
     def _load_json_from_gresource(self, path):
         """Loads a JSON file from the GResource bundle with fallback to filesystem."""
@@ -65,9 +67,14 @@ class ShortcutManager:
                 continue
             
             try:
-                settings = Gio.Settings.new(schema_id)
-                settings.set_strv(key, [binding])
-                print(f"SUCCESS: Set shortcut for {schema_id} [{key}] to '{binding}'.")
+                settings = SettingsManager(schema_id)
+                if settings.is_available():
+                    if settings.set_strv(key, [binding]):
+                        print(f"SUCCESS: Set shortcut for {schema_id} [{key}] to '{binding}'.")
+                    else:
+                        print(f"WARNING: Could not set shortcut for {schema_id} [{key}].")
+                else:
+                    print(f"Schema {schema_id} not available, skipping shortcut.")
             except Exception as e:
                 print(f"ERROR: Failed to set shortcut for {schema_id} [{key}]. Error: {e}")
         print("--- Finished Applying Standard Shortcuts ---")
@@ -78,6 +85,15 @@ class ShortcutManager:
         This function is idempotent and avoids creating duplicate shortcuts
         by checking the name and command of existing shortcuts.
         """
+        if not self.media_keys_settings.is_available():
+            print("Media keys schema is not available, skipping custom shortcuts.")
+            return
+
+        schema_source = Gio.SettingsSchemaSource.get_default() if hasattr(Gio, "SettingsSchemaSource") else None
+        if schema_source and not schema_source.lookup(self.custom_binding_schema_id, True):
+            print(f"Schema {self.custom_binding_schema_id} not available, skipping custom shortcuts.")
+            return
+
         shortcuts_to_add = self._load_json_from_gresource(self.custom_shortcuts_path)
         if not shortcuts_to_add:
             print("No custom shortcuts to apply.")

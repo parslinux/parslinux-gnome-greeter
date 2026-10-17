@@ -1,6 +1,10 @@
+from ..appinfo import resource_path as _rp
 import locale
+from locale import gettext as _
 import gi
 import threading
+from concurrent.futures import ThreadPoolExecutor
+import subprocess
 import os
 import sys
 
@@ -11,10 +15,10 @@ from gi.repository import Gtk, Adw, GLib, GdkPixbuf, Gdk
 
 # Add the managers directory to the path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'managers'))
-from ..managers.WallpaperManager import WallpaperManager
+from ..managers.wallpaper_manager import WallpaperManager
 
 # WallpaperThumbnail template class
-@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/components/WallpaperThumbnail.ui')
+@Gtk.Template(resource_path=_rp('ui', 'components', 'WallpaperThumbnail.ui'))
 class WallpaperThumbnail(Gtk.Box):
     __gtype_name__ = 'WallpaperThumbnail'
     
@@ -66,7 +70,7 @@ class WallpaperThumbnail(Gtk.Box):
         """Get selection state"""
         return self._selected
 
-@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/WallpaperPage.ui')
+@Gtk.Template(resource_path=_rp('ui', 'WallpaperPage.ui'))
 class WallpaperPage(Adw.PreferencesPage):
     __gtype_name__ = 'WallpaperPage'
     
@@ -81,6 +85,8 @@ class WallpaperPage(Adw.PreferencesPage):
         self.wallpaper_manager = WallpaperManager()
         self.wallpapers = []
         self.current_selection = None
+        self._executor = ThreadPoolExecutor(max_workers=4, thread_name_prefix="WallpaperThumb")
+        self._is_destroyed = False
         
         # Connect signals
         if self.live_wallpaper_row:
@@ -92,6 +98,13 @@ class WallpaperPage(Adw.PreferencesPage):
         thread = threading.Thread(target=self.load_wallpapers_background)
         thread.daemon = True
         thread.start()
+
+    def __del__(self):
+        self._is_destroyed = True
+        try:
+            self._executor.shutdown(wait=False, cancel_futures=True)
+        except Exception:
+            pass
     
     def load_wallpapers_background(self):
         """Load wallpapers in background thread"""
@@ -102,77 +115,55 @@ class WallpaperPage(Adw.PreferencesPage):
             print(f"Error loading wallpapers: {e}")
             
     def populate_wallpapers_ui(self):
-        """Populate the UI with wallpaper thumbnails"""
+        """Populate the UI with wallpaper thumbnails in deterministic order, then load images asynchronously."""
         try:
-            if not self.wallpapers:
-                print("No wallpapers found")
+            if not self.wallpapers or not self.wallpapers_flowbox or self._is_destroyed:
                 return
             
             # Get current wallpaper for selection
             current_wallpaper = self.wallpaper_manager.get_current_wallpaper()
             
-            # Create wallpaper thumbnails in batches
-            batch_size = 5
-            total_wallpapers = len(self.wallpapers)
-            
-            for i in range(0, total_wallpapers, batch_size):
-                batch = self.wallpapers[i:i + batch_size]
-                GLib.idle_add(self.create_wallpaper_batch, batch, current_wallpaper)
+            # 1. Add all thumbnail widgets in original deterministic order
+            tasks = []
+            for wallpaper_path in self.wallpapers:
+                thumbnail = WallpaperThumbnail()
+                child = Gtk.FlowBoxChild()
+                child.set_child(thumbnail)
+                child.wallpaper_path = wallpaper_path
+                child.thumbnail = thumbnail
+                
+                # Set initial selection state immediately
+                if current_wallpaper and wallpaper_path == current_wallpaper:
+                    child.add_css_class('active-item')
+                    thumbnail.set_selected(True)
+                    self.current_selection = child
+                
+                self.wallpapers_flowbox.append(child)
+                tasks.append((wallpaper_path, thumbnail))
+
+            # 2. Submit thumbnail generation tasks to controlled thread pool
+            for wallpaper_path, thumbnail in tasks:
+                self._executor.submit(self._generate_thumbnail_task, wallpaper_path, thumbnail)
                 
         except Exception as e:
             print(f"Error populating wallpapers UI: {e}")
-            
-    def create_wallpaper_batch(self, wallpaper_batch, current_wallpaper):
-        """Create a batch of wallpaper thumbnails"""
-        for wallpaper_path in wallpaper_batch:
-            try:
-                thread = threading.Thread(
-                    target=self.create_wallpaper_thumbnail,
-                    args=(wallpaper_path, current_wallpaper)
-                )
-                thread.daemon = True
-                thread.start()
-            except Exception as e:
-                print(f"Error creating thumbnail thread for {wallpaper_path}: {e}")
-                
-    def create_wallpaper_thumbnail(self, wallpaper_path, current_wallpaper):
-        """Create thumbnail for a single wallpaper"""
+
+    def _generate_thumbnail_task(self, wallpaper_path, thumbnail):
+        """Generate thumbnail in worker thread and dispatch update to main thread."""
+        if self._is_destroyed:
+            return
         try:
             pixbuf = self.wallpaper_manager.create_thumbnail(wallpaper_path, 160, 120)
-            if pixbuf:
-                GLib.idle_add(self.add_wallpaper_to_flowbox, wallpaper_path, pixbuf, current_wallpaper)
+            if pixbuf and not self._is_destroyed:
+                GLib.idle_add(self._apply_thumbnail, thumbnail, pixbuf)
         except Exception as e:
             print(f"Error creating thumbnail for {wallpaper_path}: {e}")
-            
-    def add_wallpaper_to_flowbox(self, wallpaper_path, pixbuf, current_wallpaper):
-        """Add wallpaper thumbnail to the flowbox"""
-        try:
-            if not self.wallpapers_flowbox:
-                print("Wallpapers flowbox not found")
-                return
-                
-            thumbnail = WallpaperThumbnail()
-            
-            if pixbuf:
-                thumbnail.load_pixbuf(pixbuf)
-            else:
-                thumbnail.load_wallpaper(wallpaper_path)
-            
-            child = Gtk.FlowBoxChild()
-            child.set_child(thumbnail)
-            child.wallpaper_path = wallpaper_path
-            child.thumbnail = thumbnail
-            
-            # Set initial selection state
-            if current_wallpaper and wallpaper_path == current_wallpaper:
-                child.add_css_class('active-item')
-                thumbnail.set_selected(True)
-                self.current_selection = child
-            
-            self.wallpapers_flowbox.append(child)
-                
-        except Exception as e:
-            print(f"Error adding wallpaper to flowbox: {e}")
+
+    def _apply_thumbnail(self, thumbnail, pixbuf):
+        """Apply loaded thumbnail pixbuf on the GTK main thread."""
+        if not self._is_destroyed and thumbnail:
+            thumbnail.load_pixbuf(pixbuf)
+        return False
 
     def on_wallpaper_selected(self, flowbox, flowbox_child):
         """Handle wallpaper selection - GNOME Control Center style"""
@@ -206,16 +197,21 @@ class WallpaperPage(Adw.PreferencesPage):
             print(f"Error setting wallpaper: {e}")
     
     def on_live_wallpaper_clicked(self, row):
-        """Handle ParsLinux Live Wallpaper button click"""
+        """Handle ParsLinux Live Wallpaper button click without shell injection or blocking."""
         try:
-            # Try to open extension preferences
-            # First check if extension is installed
             extension_uuid = "parslinux-wallpaper-extension@parslinux.org.tr"
-            
-            # Try to open extension preferences using gnome-extensions
-            result = os.system(f"gnome-extensions prefs {extension_uuid} 2>/dev/null")
-            
-            if result != 0:
+            is_installed = False
+            try:
+                result = subprocess.run(
+                    ["gnome-extensions", "prefs", extension_uuid],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL
+                )
+                is_installed = (result.returncode == 0)
+            except FileNotFoundError:
+                is_installed = False
+
+            if not is_installed:
                 # Extension not found, show info dialog
                 dialog = Adw.MessageDialog.new(
                     self.get_root(),

@@ -4,7 +4,7 @@
 
 ```bash
 pip install pytest          # tek gerekli bağımlılık
-python -m pytest            # tüm testler (şu an: 29 test)
+python -m pytest            # tüm testler (şu an: 34 test)
 python -m pytest -v         # isimleri gör
 python -m pytest tests/test_settings_manager.py -k set  # filtre
 ```
@@ -22,6 +22,7 @@ tests/
   test_settings_manager.py    # SettingsManager birim testleri (FakeSettings)
   test_layout_manager.py      # LayoutManager mantığı + layout_config.json
   test_data_files.py          # JSON/UI/şema dosyalarının bütünlüğü
+  test_page_registry.py       # appinfo, page_registry ve arayüz sözleşmeleri
 ```
 
 ## Test Katmanları

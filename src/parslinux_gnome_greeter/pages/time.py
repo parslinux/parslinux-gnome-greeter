@@ -1,3 +1,4 @@
+from ..appinfo import resource_path as _rp
 import locale
 import gi
 
@@ -10,10 +11,10 @@ import sys
 
 # Add the managers directory to the path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'managers'))
-from ..managers.ExtensionManager import ExtensionManager
-from ..managers.ThemeManager import ThemeManager
+from ..managers.extension_manager import ExtensionManager
+from ..managers.theme_manager import ThemeManager
 
-@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/TimePage.ui')
+@Gtk.Template(resource_path=_rp('ui', 'TimePage.ui'))
 class TimePage(Adw.PreferencesPage):
     __gtype_name__ = 'TimePage'
     
@@ -37,8 +38,23 @@ class TimePage(Adw.PreferencesPage):
         self.font_size_key = "font-size"
 
         # Keep a persistent settings object to listen for changes
-        self.settings = Gio.Settings.new(self.schema)
-        self.settings.connect("changed", self.on_settings_changed)
+        # The extension schema is optional and may not be installed.
+        schema_source = Gio.SettingsSchemaSource.get_default()
+        schema_obj = (
+            schema_source.lookup(self.schema, True)
+            if schema_source is not None
+            else None
+        )
+
+        if schema_obj is not None:
+            self.settings = Gio.Settings.new_full(schema_obj, None, None)
+            self.settings.connect("changed", self.on_settings_changed)
+        else:
+            self.settings = None
+            print(
+                f"Optional GSettings schema '{self.schema}' is not installed; "
+                "clock extension settings will be disabled."
+                )
         
         # Listen for extension enable/disable state changes in Gnome Shell
         self.shell_settings = Gio.Settings.new("org.gnome.shell")
@@ -83,43 +99,54 @@ class TimePage(Adw.PreferencesPage):
         GLib.idle_add(self.update_initial_state)
     
     def update_initial_state(self):
-        """Update the initial state of all widgets"""
+        """Update the initial state of all widgets."""
         if self._updating:
             return
 
         self._updating = True
         try:
+            # date-menu-formatter şeması kurulu değilse
+            # saat ayarlarını devre dışı bırak.
+            if self.settings is None:
+                self.clock_format_switch.set_active(False)
+                self.clock_format_switch.set_sensitive(False)
+
+                self.time_only_button.set_sensitive(False)
+                self.date_time_button.set_sensitive(False)
+                self.font_size_spinbutton.set_sensitive(False)
+                self.show_seconds_switch.set_sensitive(False)
+                return
+
             # Check if extension is enabled
-            is_enabled = self.extension_manager.is_extension_enabled(self.clock_extension_id)
+            is_enabled = self.extension_manager.is_extension_enabled(
+                self.clock_extension_id
+            )
             self.clock_format_switch.set_active(is_enabled)
-            
+
             # Get current pattern
             current_pattern = self.settings.get_string(self.pattern_key)
-            
-            # Set format buttons based on pattern (detects Luxon components)
+
+            # Set format buttons based on pattern
             if any(c in current_pattern for c in ['d', 'M', 'y', 'E', 'c']):
                 self.date_time_button.set_active(True)
             else:
                 self.time_only_button.set_active(True)
-            
+
             # Set seconds switch
-            if 'ss' in current_pattern:
-                self.show_seconds_switch.set_active(True)
-            else:
-                self.show_seconds_switch.set_active(False)
-            
+            self.show_seconds_switch.set_active('ss' in current_pattern)
+
             # Set font size
             font_size = self.settings.get_int(self.font_size_key)
             self.font_size_spinbutton.set_value(font_size)
-            
+
             # Update sensitivity
             self.update_sensitivity(is_enabled)
-            
+
         except Exception as e:
             print(f"Error updating initial state: {e}")
         finally:
             self._updating = False
-    
+
     def update_sensitivity(self, enabled):
         """Update sensitivity of widgets based on extension state"""
         self.time_only_button.set_sensitive(enabled)

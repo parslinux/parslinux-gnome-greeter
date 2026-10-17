@@ -1,6 +1,10 @@
 *.pyc
 *.pyo
 
+# Compiled schemas
+gschemas.compiled
+*.compiled
+
 # Translations
 *.mo
 __pycache__

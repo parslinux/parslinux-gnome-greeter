@@ -1,13 +1,14 @@
+from ..appinfo import resource_path as _rp
 import json
 import os
 from gi.repository import Gio, GLib
 
 # Import ExtensionManager
-from .ExtensionManager import ExtensionManager
+from .extension_manager import ExtensionManager
 from .settings import app_settings, SettingsManager, shell_settings
 
 class LayoutManager:
-    def __init__(self, config_path="/org/parslinux/parslinux-gnome-greeter/json/layout_config.json"):
+    def __init__(self, config_path=_rp('json', 'layout_config.json')):
         self.config_path = config_path
         
         try:
@@ -331,7 +332,7 @@ if __name__ == '__main__':
         parser.add_argument("-a", "--apply", metavar="LAYOUT", help="Apply the specified layout and exit.")
         args = parser.parse_args()
 
-        manager = LayoutManager(config_path="/org/parslinux/parslinux-gnome-greeter/json/layout_config.json")
+        manager = LayoutManager(config_path=_rp('json', 'layout_config.json'))
         
         if args.apply:
             if args.apply in manager.layouts:

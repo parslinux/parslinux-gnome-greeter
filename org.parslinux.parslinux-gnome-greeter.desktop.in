@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=ParsLinux GNOME Greeter
-_Comment=Configure your new ParsLinux GNOME desktop
+Comment=Configure your new ParsLinux GNOME desktop
 Exec=parslinux-gnome-greeter
 Icon=parslinux-gnome-greeter
 Terminal=false
@@ -8,4 +8,4 @@ Type=Application
 Categories=Settings;X-ParsLinux-Apps;
 StartupNotify=true
 # Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST end with a semicolon.
-_Keywords=parslinux;gnome;greeter;welcome;first;run;setup; 
+Keywords=parslinux;gnome;greeter;welcome;first;run;setup; 

@@ -1,3 +1,5 @@
+from ..appinfo import resource_path as _rp
+from locale import gettext as _
 import gi
 
 gi.require_version("Gtk", "4.0")
@@ -5,7 +7,7 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Gtk, Adw, GObject
 
-@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/WelcomePage.ui')
+@Gtk.Template(resource_path=_rp('ui', 'WelcomePage.ui'))
 class WelcomePage(Adw.PreferencesPage):
     __gtype_name__ = 'WelcomePage'
     
@@ -21,7 +23,7 @@ class WelcomePage(Adw.PreferencesPage):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
-        self.welcome_banner.set_resource("/org/parslinux/parslinux-gnome-greeter/assets/banner.png")
+        self.welcome_banner.set_resource(_rp('assets', 'banner.png'))
         self.welcome_title.set_label(_("Welcome to ParsLinux GNOME!"))
         self.welcome_message.set_label(_("You can easily configure your system with the Greeter application."))
         self.start_button.connect("clicked", self.on_start_button_clicked)

@@ -1,3 +1,4 @@
+from ..appinfo import resource_path as _rp
 import gi
 import os
 import threading
@@ -8,7 +9,7 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Gtk, Adw, GLib, Gio, GdkPixbuf, Gdk, GObject
 
-from ..managers.LayoutManager import LayoutManager
+from ..managers.layout_manager import LayoutManager
 
 
 class GifPaintable(GObject.Object, Gdk.Paintable):
@@ -17,7 +18,10 @@ class GifPaintable(GObject.Object, Gdk.Paintable):
         self.animation = GdkPixbuf.PixbufAnimation.new_from_file(path)
         self.iterator = self.animation.get_iter()
         self.delay = self.iterator.get_delay_time()
-        self.timeout = GLib.timeout_add(self.delay, self.on_delay)
+        self._is_stopped = False
+        self.timeout = None
+        if self.delay > 0:
+            self.timeout = GLib.timeout_add(self.delay, self.on_delay)
 
         self.invalidate_contents()
     
@@ -29,13 +33,31 @@ class GifPaintable(GObject.Object, Gdk.Paintable):
         instance.animation = animation
         instance.iterator = animation.get_iter()
         instance.delay = instance.iterator.get_delay_time()
-        instance.timeout = GLib.timeout_add(instance.delay, instance.on_delay)
+        instance._is_stopped = False
+        instance.timeout = None
+        if instance.delay > 0:
+            instance.timeout = GLib.timeout_add(instance.delay, instance.on_delay)
         instance.invalidate_contents()
         return instance
 
+    def stop(self):
+        """Stops the GIF animation loop and removes any pending GLib timeout."""
+        self._is_stopped = True
+        if self.timeout is not None:
+            try:
+                GLib.source_remove(self.timeout)
+            except Exception:
+                pass
+            self.timeout = None
+
     def on_delay(self):
+        if self._is_stopped:
+            return GLib.SOURCE_REMOVE
         delay = self.iterator.get_delay_time()
-        self.timeout = GLib.timeout_add(delay, self.on_delay)
+        if delay > 0 and not self._is_stopped:
+            self.timeout = GLib.timeout_add(delay, self.on_delay)
+        else:
+            self.timeout = None
         self.invalidate_contents()
 
         return GLib.SOURCE_REMOVE
@@ -59,7 +81,7 @@ class GifPaintable(GObject.Object, Gdk.Paintable):
         texture.snapshot(snapshot, width, height)
 
 
-@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/LayoutPage.ui')
+@Gtk.Template(resource_path=_rp('ui', 'LayoutPage.ui'))
 class LayoutPage(Adw.PreferencesPage):
     __gtype_name__ = 'LayoutPage'
     
@@ -166,7 +188,7 @@ class LayoutPage(Adw.PreferencesPage):
         picture.add_css_class("layout-image")
         
         # Load static image initially from gresource
-        static_path = f"/org/parslinux/parslinux-gnome-greeter/assets/layouts/layout-{layout_id}.svg"
+        static_path = _rp('assets', 'layouts', f'layout-{layout_id}.svg')
         try:
             file = Gio.File.new_for_uri(f'resource://{static_path}')
             if file.query_exists():
@@ -205,7 +227,7 @@ class LayoutPage(Adw.PreferencesPage):
         card.picture = picture
         card.layout_id = layout_id
         card.static_path = static_path
-        card.gif_path = f"/org/parslinux/parslinux-gnome-greeter/assets/layouts/layout-{layout_id}.gif"
+        card.gif_path = _rp('assets', 'layouts', f'layout-{layout_id}.gif')
         
         # Connect signals
         card.connect("clicked", self._on_layout_selected)
@@ -221,15 +243,20 @@ class LayoutPage(Adw.PreferencesPage):
     def _on_card_enter(self, controller, x, y):
         """Handle mouse enter on card"""
         card = controller.get_widget()
-        
+
+        # Stop any existing GIF animation on this card before starting a new one
+        if hasattr(card, "current_gif") and card.current_gif:
+            card.current_gif.stop()
+            card.current_gif = None
+
         # Switch to GIF using GifPaintable from gresource
         try:
-            # Try to load GIF directly from gresource using GdkPixbuf
             from gi.repository import GdkPixbuf
             pixbuf_animation = GdkPixbuf.PixbufAnimation.new_from_resource(card.gif_path)
             if pixbuf_animation:
                 # Create a simple paintable from the animation
                 gif_paintable = GifPaintable.from_animation(pixbuf_animation)
+                card.current_gif = gif_paintable
                 card.picture.set_paintable(gif_paintable)
         except Exception as e:
             print(f"Error loading GIF: {e}")
@@ -240,6 +267,11 @@ class LayoutPage(Adw.PreferencesPage):
     def _on_card_leave(self, controller):
         """Handle mouse leave from card"""
         card = controller.get_widget()
+
+        # Stop animation timer to prevent memory & CPU leak
+        if hasattr(card, "current_gif") and card.current_gif:
+            card.current_gif.stop()
+            card.current_gif = None
         
         # Switch back to static image from gresource
         try:
@@ -251,6 +283,14 @@ class LayoutPage(Adw.PreferencesPage):
         
         # Remove hover style
         card.remove_css_class("card-hover")
+
+    def do_unroot(self):
+        """Clean up active animations when widget is unrooted."""
+        for card in self.layout_cards.values():
+            if hasattr(card, "current_gif") and card.current_gif:
+                card.current_gif.stop()
+                card.current_gif = None
+        super().do_unroot()
     
     def _on_layout_selected(self, button):
         """Handle layout selection"""

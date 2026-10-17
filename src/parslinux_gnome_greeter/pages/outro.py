@@ -1,3 +1,4 @@
+from ..appinfo import resource_path as _rp
 import gi
 
 gi.require_version("Gtk", "4.0")
@@ -5,7 +6,7 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Gtk, Adw
 
-@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/OutroPage.ui')
+@Gtk.Template(resource_path=_rp('ui', 'OutroPage.ui'))
 class OutroPage(Adw.PreferencesPage):
     __gtype_name__ = 'OutroPage'
     

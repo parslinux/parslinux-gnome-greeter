@@ -50,21 +50,28 @@ Her sihirbaz adımı kendi sınıfıdır:
 Sayfalar `.ui` dosyalarını `data/ui/` altından yükler (GtkBuilder).
 
 ### 4. Manager'lar (`managers/`)
-Sistemle konuşan tek yer burasıdır:
+Sistemle konuşan tek yer burasıdır (PEP 8 `snake_case` dosya adları):
 
 - **`settings.py` → `SettingsManager`**: GSettings sarmalayıcı. Modül düzeyinde
   hazır örnekler kurulur: `app_settings` (uygulamanın kendi şeması),
   `theme_settings`, `shell_settings`, `background_settings`.
-- **`WallpaperManager`**: duvar kağıdı kaynaklarını `data/json/wallpaper_sources.json`
+- **`wallpaper_manager.py` (`WallpaperManager`)**: duvar kağıdı kaynaklarını `data/json/wallpaper_sources.json`
   üzerinden indirir, `org.gnome.desktop.background`'a uygular.
-- **`ThemeManager`**: `org.gnome.desktop.interface` üzerinden gtk/icon/font/cursor temaları.
-- **`ExtensionManager`**: `pydbus` ile GNOME Shell D-Bus API'sinden eklenti listeler/etkinleştirir;
+- **`theme_manager.py` (`ThemeManager`)**: `org.gnome.desktop.interface` üzerinden gtk/icon/font/cursor temaları.
+- **`extension_manager.py` (`ExtensionManager`)**: `pydbus` ile GNOME Shell D-Bus API'sinden eklenti listeler/etkinleştirir;
   öneriler `data/json/extensions.json`.
-- **`LayoutManager`**: `data/json/layout_config.json` tabanlı panel düzeni.
-- **`ShortcutManager`**: `data/json/shortcuts.json` ve `custom_shortcuts.json`.
-- **`DisplayManager`**: ölçek/dpi ayarları.
+- **`layout_manager.py` (`LayoutManager`)**: `data/json/layout_config.json` tabanlı panel düzeni.
+- **`shortcut_manager.py` (`ShortcutManager`)**: `data/json/shortcuts.json` ve `custom_shortcuts.json`.
+- **`display_manager.py` (`DisplayManager`)**: ölçek/dpi ayarları.
 
-### 5. Veri Katmanı (`data/`)
+*(Eski `CamelCase.py` modülleri geriye dönük uyumluluk shim'i olarak korunur).*
+
+### 5. Temel Yardımcılar & Sözleşmeler
+- **`appinfo.py`**: Uygulama kimliği (`APP_ID`), GResource prefix'i (`RESOURCE_PREFIX`) ve varlık yolları için merkezi tanımlar.
+- **`page_registry.py`**: Sihirbaz sayfalarının tanımları, navigasyon sırası ve tembel (lazy) yükleme mekanizması.
+- **`interfaces.py`**: Manager sözleşmelerini tanımlayan `typing.Protocol` arayüzleri.
+
+### 6. Veri Katmanı (`data/`)
 - `json/`: tüm öneri/katalog verisi (kod değişikliği gerektirmeden güncellenebilir).
 - `schemas/org.parslinux.parslinux-gnome-greeter.gschema.xml`: uygulama durumu
   (tamamlanan sayfalar, seçilen duvar kağıdı vb.).
@@ -82,6 +89,7 @@ eder; böylece manager mantığı başlessız ortamda (CI dahil) çalışır:
 - `test_settings_manager.py` — SettingsManager'ı `FakeSettings/FakeVariant` ile izole test eder
 - `test_layout_manager.py` — layout JSON şeması ve seçim mantığı
 - `test_data_files.py` — tüm JSON'ların geçerliliği, `.ui` XML'lerinin geçerliliği, şema ID kontrolü
+- `test_page_registry.py` — appinfo sabitleri, lazy sayfa yükleme ve arayüz sözleşmeleri
 
 Çalıştırma: `python -m pytest`
 

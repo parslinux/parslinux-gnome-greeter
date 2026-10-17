@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from .appinfo import APP_ID
 import sys
 import os
 import gi
@@ -15,27 +16,44 @@ gi.require_version("Adw", "1")
 from gi.repository import Gio, GLib, Gtk, Adw
 
 def load_gresource():
-
-    """Loads the GResource file."""
-    # Simplified dev environment check
+    """Loads the GResource file from dev build, XDG_DATA_DIRS, or system prefixes."""
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
     build_dir = os.path.join(project_root, 'build')
-    resource_path = os.path.join(build_dir, 'parslinux-gnome-greeter.gresource')
 
-    if os.path.exists(build_dir) and os.path.exists(resource_path):
-        # Development environment
-        pass
-    else:
-        # Installed environment
-        resource_path = "/usr/share/parslinux/parslinux-gnome-greeter/parslinux-gnome-greeter.gresource"
+    candidates = [
+        # 1. Local build directory (development)
+        os.path.join(build_dir, 'parslinux-gnome-greeter.gresource'),
+    ]
+
+    # 2. XDG_DATA_DIRS paths
+    xdg_data_dirs = os.environ.get("XDG_DATA_DIRS", "/usr/local/share:/usr/share").split(":")
+    for data_dir in xdg_data_dirs:
+        if data_dir:
+            candidates.append(os.path.join(data_dir, 'parslinux', 'parslinux-gnome-greeter', 'parslinux-gnome-greeter.gresource'))
+
+    # 3. Standard fallback locations
+    candidates.extend([
+        "/usr/share/parslinux/parslinux-gnome-greeter/parslinux-gnome-greeter.gresource",
+        "/usr/local/share/parslinux/parslinux-gnome-greeter/parslinux-gnome-greeter.gresource",
+        os.path.expanduser("~/.local/share/parslinux/parslinux-gnome-greeter/parslinux-gnome-greeter.gresource")
+    ])
+
+    resource_path = None
+    for cand in candidates:
+        if os.path.exists(cand):
+            resource_path = cand
+            break
+
+    if not resource_path:
+        print(f"FATAL: Could not find parslinux-gnome-greeter.gresource in candidate locations: {candidates[:4]}")
+        sys.exit(1)
 
     try:
         resource = Gio.resource_load(resource_path)
         Gio.Resource._register(resource)
-        _("GResource loaded from")
         print(f"GResource loaded from {resource_path}")
     except GLib.Error as e:
-        print(f"FATAL: Could not load GResource: {e}")
+        print(f"FATAL: Could not load GResource from {resource_path}: {e}")
         sys.exit(1)
 
 # Load GResource before importing any UI code
@@ -44,13 +62,13 @@ load_gresource()
 # Import UI classes after GResource is loaded
 from .main_window import MainWindow
 from .managers.settings import app_settings
-from .managers.ShortcutManager import ShortcutManager
+from .managers.shortcut_manager import ShortcutManager
 
 class ParsLinuxGreeterApplication(Adw.Application):
     """The main application."""
 
     def __init__(self):
-        super().__init__(application_id='org.parslinux.parslinux-gnome-greeter',
+        super().__init__(application_id=APP_ID,
                          flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE)
         self.win = None
         self.is_first_run_check = False

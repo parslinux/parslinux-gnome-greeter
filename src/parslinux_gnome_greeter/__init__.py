@@ -8,24 +8,29 @@ manage GNOME desktop settings.
 
 __version__ = "0.0.13"
 
-# Export managers
-from .managers import (
-    ShortcutManager,
-    ThemeManager,
-    WallpaperManager,
-    DisplayManager,
-    ExtensionManager,
-    LayoutManager,
-    SettingsManager,
-)
+try:
+    # Export managers
+    from .managers import (
+        ShortcutManager,
+        ThemeManager,
+        WallpaperManager,
+        DisplayManager,
+        ExtensionManager,
+        LayoutManager,
+        SettingsManager,
+    )
 
-# Export settings instances
-from .managers.settings import (
-    app_settings,
-    theme_settings,
-    shell_settings,
-    background_settings,
-)
+    # Export settings instances
+    from .managers.settings import (
+        app_settings,
+        theme_settings,
+        shell_settings,
+        background_settings,
+    )
+except ImportError:
+    # gi/dbus kurulu olmayan ortamlarda (build/test/dokümantasyon)
+    # paketin temel değişkenlerine (__version__, appinfo vb.) erişilebilmelidir.
+    pass
 
 __all__ = [
     'ShortcutManager',

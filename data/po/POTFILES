@@ -5,9 +5,10 @@ src/parslinux_gnome_greeter/pages/wallpaper.py
 src/parslinux_gnome_greeter/pages/display.py
 src/parslinux_gnome_greeter/pages/extension.py
 src/parslinux_gnome_greeter/pages/applications.py
+src/parslinux_gnome_greeter/pages/time.py
 src/parslinux_gnome_greeter/pages/outro.py
 src/parslinux_gnome_greeter/main_window.py
-src/parslinux_gnome_greeter/components/AboutDialog.py
+src/parslinux_gnome_greeter/components/about_dialog.py
 src/parslinux_gnome_greeter/__main__.py
 data/ui/ApplicationsPage.ui
 data/ui/ExtensionPage.ui

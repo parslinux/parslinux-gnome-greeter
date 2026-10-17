@@ -1,3 +1,4 @@
+from ..appinfo import resource_path as _rp
 import locale
 import gi
 from locale import gettext as _
@@ -11,7 +12,8 @@ from gi.repository import Gtk, Adw, Gio, GLib
 domain = 'parslinux-gnome-greeter'
 locale.bindtextdomain(domain, '/usr/share/locale')
 locale.textdomain(domain)
-from ..managers.DisplayManager import display_manager
+from ..managers.display_manager import display_manager
+from ..managers.settings import SettingsManager
 
 CURSOR_SCHEMA = "org.gnome.desktop.interface"
 CURSOR_KEY = "cursor-size"
@@ -22,16 +24,16 @@ DESKTOP_ICONS_KEY = "icon-size"
 NAUTILUS_SCHEMA = "org.gnome.nautilus.icon-view"
 NAUTILUS_KEY = "default-zoom-level"
 
-@Gtk.Template(resource_path='/org/parslinux/parslinux-gnome-greeter/ui/DisplayPage.ui')
+@Gtk.Template(resource_path=_rp('ui', 'DisplayPage.ui'))
 class DisplayPage(Adw.PreferencesPage):
     __gtype_name__ = 'DisplayPage'
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
-        self.settings = Gio.Settings.new(CURSOR_SCHEMA)
-        self.desktop_icons_settings = Gio.Settings.new(DESKTOP_ICONS_SCHEMA)
-        self.nautilus_settings = Gio.Settings.new(NAUTILUS_SCHEMA)
+        self.cursor_settings = SettingsManager(CURSOR_SCHEMA)
+        self.desktop_icons_settings = SettingsManager(DESKTOP_ICONS_SCHEMA)
+        self.nautilus_settings = SettingsManager(NAUTILUS_SCHEMA)
         self.monitors_group = None
 
         # Maps for settings
@@ -111,11 +113,14 @@ class DisplayPage(Adw.PreferencesPage):
         self.cursor_size_row = Adw.ComboRow(title=_("Cursor Size"), model=cursor_model)
         scaling_group.add(self.cursor_size_row)
         
-        current_cursor_size = self.settings.get_int(CURSOR_KEY)
-        rev_cursor_map = {v: k for k, v in self.cursor_size_map.items()}
-        cursor_selected_index = rev_cursor_map.get(current_cursor_size, 1) # Default to Medium
-        self.cursor_size_row.set_selected(cursor_selected_index)
-        self.cursor_size_row.connect("notify::selected", self.on_cursor_size_changed)
+        if self.cursor_settings.is_available():
+            current_cursor_size = self.cursor_settings.get_safe(CURSOR_KEY, 32)
+            rev_cursor_map = {v: k for k, v in self.cursor_size_map.items()}
+            cursor_selected_index = rev_cursor_map.get(current_cursor_size, 1) # Default to Medium
+            self.cursor_size_row.set_selected(cursor_selected_index)
+            self.cursor_size_row.connect("notify::selected", self.on_cursor_size_changed)
+        else:
+            self.cursor_size_row.set_sensitive(False)
 
         # Desktop Icons
         desktop_labels = [_("Tiny"), _("Small"), _("Standard"), _("Large")]
@@ -123,11 +128,14 @@ class DisplayPage(Adw.PreferencesPage):
         self.desktop_icons_row = Adw.ComboRow(title=_("Desktop Icon Size"), model=desktop_model)
         scaling_group.add(self.desktop_icons_row)
         
-        current_desktop_size = self.desktop_icons_settings.get_string(DESKTOP_ICONS_KEY)
-        rev_desktop_map = {v: k for k, v in self.desktop_icons_map.items()}
-        desktop_selected_index = rev_desktop_map.get(current_desktop_size, 2) # Default to Standard
-        self.desktop_icons_row.set_selected(desktop_selected_index)
-        self.desktop_icons_row.connect("notify::selected", self.on_desktop_icon_size_changed)
+        if self.desktop_icons_settings.is_available():
+            current_desktop_size = self.desktop_icons_settings.get_safe(DESKTOP_ICONS_KEY, 'standard')
+            rev_desktop_map = {v: k for k, v in self.desktop_icons_map.items()}
+            desktop_selected_index = rev_desktop_map.get(current_desktop_size, 2) # Default to Standard
+            self.desktop_icons_row.set_selected(desktop_selected_index)
+            self.desktop_icons_row.connect("notify::selected", self.on_desktop_icon_size_changed)
+        else:
+            self.desktop_icons_row.set_visible(False)
 
         # File Manager Icons
         nautilus_labels = [_("Small"), _("Small+"), _("Medium"), _("Large"), _("Extra Large")]
@@ -135,29 +143,32 @@ class DisplayPage(Adw.PreferencesPage):
         self.nautilus_zoom_row = Adw.ComboRow(title=_("File Manager Icon Size"), model=nautilus_model)
         scaling_group.add(self.nautilus_zoom_row)
         
-        current_nautilus_zoom = self.nautilus_settings.get_string(NAUTILUS_KEY)
-        rev_nautilus_map = {v: k for k, v in self.nautilus_zoom_map.items()}
-        nautilus_selected_index = rev_nautilus_map.get(current_nautilus_zoom, 2) # Default to Medium
-        self.nautilus_zoom_row.set_selected(nautilus_selected_index)
-        self.nautilus_zoom_row.connect("notify::selected", self.on_nautilus_zoom_changed)
+        if self.nautilus_settings.is_available():
+            current_nautilus_zoom = self.nautilus_settings.get_safe(NAUTILUS_KEY, 'medium')
+            rev_nautilus_map = {v: k for k, v in self.nautilus_zoom_map.items()}
+            nautilus_selected_index = rev_nautilus_map.get(current_nautilus_zoom, 2) # Default to Medium
+            self.nautilus_zoom_row.set_selected(nautilus_selected_index)
+            self.nautilus_zoom_row.connect("notify::selected", self.on_nautilus_zoom_changed)
+        else:
+            self.nautilus_zoom_row.set_visible(False)
 
     def on_cursor_size_changed(self, combo, _):
         selected_index = combo.get_selected()
         new_size = self.cursor_size_map.get(selected_index)
-        if new_size is not None:
-            self.settings.set_int(CURSOR_KEY, new_size)
+        if new_size is not None and self.cursor_settings.is_available():
+            self.cursor_settings.set(CURSOR_KEY, new_size)
 
     def on_desktop_icon_size_changed(self, combo, _):
         selected_index = combo.get_selected()
         new_size = self.desktop_icons_map.get(selected_index)
-        if new_size is not None:
-            self.desktop_icons_settings.set_string(DESKTOP_ICONS_KEY, new_size)
+        if new_size is not None and self.desktop_icons_settings.is_available():
+            self.desktop_icons_settings.set(DESKTOP_ICONS_KEY, new_size)
 
     def on_nautilus_zoom_changed(self, combo, _):
         selected_index = combo.get_selected()
         new_zoom = self.nautilus_zoom_map.get(selected_index)
-        if new_zoom is not None:
-            self.nautilus_settings.set_string(NAUTILUS_KEY, new_zoom)
+        if new_zoom is not None and self.nautilus_settings.is_available():
+            self.nautilus_settings.set(NAUTILUS_KEY, new_zoom)
     
     def on_scale_changed(self, widget, _, monitor_id, scales):
         selected_index = widget.get_selected()

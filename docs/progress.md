@@ -30,16 +30,43 @@
 | `DATA_SAVING_GUIDE.md` | GSettings/dconf veri katmanı, anahtar ekleme kuralları |
 | `SELF_HOSTING_GUIDE.md` | Kendi içerik sunucusu, air-gapped dağıtım |
 | `PAYMENT_INTEGRATION.md` | Bağış/ödeme entegrasyonu yerleri ve GPL uyumu |
-| `UYGULAMA_BAGLAMA.md` | Dağıtıma entegrasyon: autostart, şema, paket zinciri |
+| [UYGULAMA_BAGLAMA.md](UYGULAMA_BAGLAMA.md) | Dağıtıma entegrasyon: autostart, şema, paket zinciri |
+| `TERMS.md` / `SARTLAR.md` | Sistem gereksinimleri, lisans (GPL-3.0), dağıtım, marka ve garanti şartları |
 | `TESTING.md` | Test çalıştırma, yazma kuralları, CI önerisi |
 | `CONTRIBUTING.md` | Katkı kuralları, PR akışı |
 | `CLAUDE.md` / `.claudeignore` | AI asistanları için bağlam ve hariç tutmalar |
 
+### ✅ PEP 8 Taşınması & Geriye Dönük Uyumluluk
+- `managers/` ve `components/` dosyaları PEP 8 `snake_case` isimlerine taşındı (`display_manager.py`, `layout_manager.py`, `about_dialog.py` vb.)
+- Eski `CamelCase.py` modülleri geriye dönük uyumluluk katmanı (shim) olarak korundu
+- Sabitler ve kaynak yolları merkezi `appinfo.py` modülüne taşındı
+- Sayfa yapılandırması `page_registry.py` üzerinden lazy-loading mimarisine bağlandı
+
+### ✅ Mimari & Performans İyileştirmeleri
+- `main_window.py`: Tüm sayfaların doğrudan eager import edilmesi yerine `page_registry` üzerinden isteğe bağlı (on-demand / lazy) yüklenmesi sağlandı. Açılışta yalnızca aktif sayfa başlatılır.
+- `pages/wallpaper.py`: Her görsel için kontrolsüz thread oluşturulması (thread storm) yerine `ThreadPoolExecutor(max_workers=4)` havuzu kuruldu. FlowBox içinde thumbnail sıralaması deterministik hale getirildi ve `os.system` çağrıları güvenli `subprocess.run` ile değiştirildi.
+- `pages/layout.py`: `GifPaintable` animasyon döngüsüne `stop()` ve `cleanup()` eklendi; karttan çıkıldığında (`_on_card_leave`) zamanlayıcı iptal edilerek arka plandaki zombie timer ve CPU/bellek sızıntısı tamamen engellendi.
+- `managers/extension_manager.py`: Eski harici `python-dbus` bağımlılığı kaldırılarak PyGObject'in yerleşik `Gio.DBusProxy` yapısına geçirildi; D-Bus bulunamadığında GSettings tabanlı zarif geri dönüş (fallback) eklendi.
+- `managers/display_manager.py`: Monitör ayrıştırma döngüsü içindeki tekrarlı `dbus.SessionBus()` bağlantıları ve çağrıları elendi; `GetCurrentState` tek seferde çekilerek pydbus proxy'si üzerinden paylaştırıldı.
+- `__main__.py`: Sabit kodlanmış `/usr/share/...` GResource yolu yerine; geliştirme dizini (`build/`), `XDG_DATA_DIRS`, `/usr/local` ve kullanıcı dizinlerini tarayan dinamik arama zinciri kuruldu.
+- `pages/applications.py`: `parslinux-software`, `gnome-software`, `pamac-manager` ve `discover` mağazaları için dinamik geri dönüş ve bulunamadığında `Adw.AlertDialog` geri bildirimi eklendi.
+
+### ✅ Hata Ayıklama & Kararlılık İyileştirmeleri
+- `managers/settings.py`: Sistemde kurulu olmayan şemalara karşı `lookup()` koruması ve `set()` metoduna `list_keys()` anahtar doğrulaması eklendi; GLib `g_error()` kaynaklı `SIGABRT` çökmeleri önlendi.
+- `pages/display.py`: DING (`org.gnome.shell.extensions.ding`) ve Nautilus şemaları `SettingsManager` üzerinden güvenli hale getirildi; kurulu olmayan sistemlerde çökmek yerine kontroller zarifçe gizlenir/devre dışı bırakılır.
+- `managers/shortcut_manager.py`: `media-keys` ve `custom-keybinding` şemaları için varlık doğrulaması eklendi.
+- `run.sh`: Dahili `--build` ve `--meson` bayraklarının Python uygulamasına parametre olarak sızması ve "Bilinmeyen seçenek" hatası vermesi engellendi.
+- `pages/time.py`: `update_initial_state` içindeki girinti hatası (`return outside function` SyntaxError) düzeltildi
+- `page_registry.py`: `import_module` bağıl import için `package=__package__` parametresi eklendi
+- `pages/extension.py` & `pages/welcome.py`: Eksik gettext `_` importları tamamlandı
+- `org.parslinux.parslinux-gnome-greeter.desktop.in`: msgfmt uyumu için standart anahtar isimleri (`Comment=`, `Keywords=`) kullanıldı
+- `tests/conftest.py`: `GObject` desteği ve PEP 560 çoklu miras (`__mro_entries__`) desteği eklenerek tüm sayfa sınıflarının başlessız testi sağlandı
+- Toplam test sayısı **37/37**'ye yükseldi ve tamamı başarıyla geçiyor.
+
 ## Devam Eden / Sonraki Adımlar
 
-- ⏳ Bu dokümantasyon + test değişikliklerinin **git commit**'lenmesi (son adım)
+- ✅ Değişikliklerin düzenli bir **git commit** ile kaydedilmesi
 - 🔜 GitHub Actions CI workflow (build + pytest)
-- 🔜 CamelCase manager dosyalarının snake_case'e taşınması (API bozmadan)
 - 🔜 ExtensionManager/WallpaperManager için mock tabanlı ek testler
 - 🔜 Çeviri dosyalarında marka metinlerinin gözden geçirilmesi
 

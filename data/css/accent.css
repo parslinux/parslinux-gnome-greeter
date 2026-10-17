@@ -54,6 +54,10 @@
   background: #6c758f; 
   border-color: #6c758f;
 }
+.accent-navy { 
+  background: #1a2940; 
+  border-color: #1a2940;
+}
 
 /* Selected state - contrasting border colors based on theme */
 .accent-color-button:checked.accent-blue { 
@@ -90,6 +94,10 @@
 }
 .accent-color-button:checked.accent-slate { 
   border-color: @window_fg_color;
+  border-width: 3px;
+}
+.accent-color-button:checked.accent-navy { 
+  border-color: #7fa8e0;
   border-width: 3px;
 }
 
