@@ -1,12 +1,18 @@
-from pydbus import SessionBus
-from gi.repository import GLib
 import threading
+from gi.repository import GLib
+
 try:
     import dbus
     DBUS_AVAILABLE = True
 except ImportError:
     DBUS_AVAILABLE = False
-    print("Warning: python-dbus not available, resolution changing will not work")
+
+try:
+    from pydbus import SessionBus
+    PYDBUS_AVAILABLE = True
+except ImportError:
+    PYDBUS_AVAILABLE = False
+
 
 class DisplayManager:
     def __init__(self):
@@ -28,9 +34,19 @@ class DisplayManager:
     def _fetch_monitor_resources(self):
         config = []
         try:
-            bus = SessionBus()
-            proxy = bus.get("org.gnome.Mutter.DisplayConfig", "/org/gnome/Mutter/DisplayConfig")
-            
+            proxy = None
+            if DBUS_AVAILABLE:
+                bus = dbus.SessionBus()
+                raw_proxy = bus.get_object("org.gnome.Mutter.DisplayConfig", "/org/gnome/Mutter/DisplayConfig")
+                proxy = dbus.Interface(raw_proxy, dbus_interface="org.gnome.Mutter.DisplayConfig")
+            elif PYDBUS_AVAILABLE:
+                bus = SessionBus()
+                proxy = bus.get("org.gnome.Mutter.DisplayConfig", "/org/gnome/Mutter/DisplayConfig")
+            else:
+                print("Warning: Neither python-dbus nor pydbus available, display detection disabled")
+                self._finish_loading(config)
+                return
+
             # GetResources returns: (serial, crtcs, outputs, modes, max_w, max_h)
             result = proxy.GetResources()
             print("DisplayManager: Raw D-Bus response received")
